@@ -37,12 +37,24 @@ public class Piece {
 	
 
 
+	public int getOrientation() {
+		return orientation;
+	}
+
+	public void setOrientation(int orientation) {
+		this.orientation = orientation;
+	}
+
 	public int[][] getData() {
 		return data;
 	}
 	
 	public int[] getPiece(){
 		return this.getData()[orientation];
+	}
+	
+	public int[] getPieceAtOrientation(int o){
+		return this.getData()[o];
 	}
 
 	@Override

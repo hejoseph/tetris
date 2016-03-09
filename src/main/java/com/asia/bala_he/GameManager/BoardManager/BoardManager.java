@@ -40,8 +40,8 @@ public class BoardManager {
 
 	public void eraseBoardWithCurrentPiece() {
 		int a = 0;
-		for (int i = this.x; i < 4; i++) {
-			for (int j = this.y; j < 4; j++) {
+		for (int i = this.x; i < this.x+4; i++) {
+			for (int j = this.y; j < this.y+4; j++) {
 				if (this.board[i][j] == this.current.getPiece()[a]) {
 					this.board[i][j] = 0;
 				}
@@ -49,14 +49,31 @@ public class BoardManager {
 			}
 		}
 	}
-
-	public boolean move_down() {
-		int a = 0;
+	
+	//return true if current piece can move down
+	public boolean can_move_down() {
 		this.eraseBoardWithCurrentPiece();
-		int y = this.y + 1;
-		for (int i = this.x; i < 4; i++) {
+		if(possible_move(this.x+1, this.y, this.current.getPiece())){
+			return true;
+		}
+		return false;
+	}
+	
+	//move the current piece down of the board
+	public void move_down(){
+		if(this.can_move_down()){
+			this.eraseBoardWithCurrentPiece();
+			this.x=this.x+1;
+			this.fillBoardWithCurrentPiece();
+		}
+	}
+	
+	//check if current piece is overlapping another piece on the board
+	public boolean possible_move(int x, int y, int[] pieceToTest){
+		int a = 0;
+		for (int i = x; i < 4; i++) {
 			for (int j = y; j < 4; j++) {
-				if (this.board[i][j] !=0 && this.current.getPiece()[a]!=0) {
+				if (this.board[i][j] !=0 && pieceToTest[a]!=0) {
 					return false;
 				}
 				a++;
@@ -65,6 +82,61 @@ public class BoardManager {
 		return true;
 	}
 	
+	//can rotate the current piece to the right?
+	public boolean can_rotate_right(){
+		int o = this.current.getOrientation();
+		o++;
+		o=o%4;
+		if(possible_move(this.x,this.y,this.current.getPieceAtOrientation(o))){
+			return true;
+		}
+		return false;
+	}
+	
+	public void rotate_right(){
+		if(can_rotate_right()){
+			this.eraseBoardWithCurrentPiece();
+			int o = this.current.getOrientation()+1;
+			o=o%4;
+			this.current.setOrientation(o);
+			this.fillBoardWithCurrentPiece();
+		}
+	}
+	
+	
+	public boolean can_move_left(){
+		if(this.y>0){
+			if(possible_move(this.x, this.y-1, this.current.getPiece())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void move_left(){
+		if(can_move_left()){
+			this.eraseBoardWithCurrentPiece();
+			this.y=this.y-1;
+			this.fillBoardWithCurrentPiece();
+		}
+	}
+	
+	public boolean can_move_right(){
+		if(this.y<this.board.length-4){
+			if(possible_move(this.x, this.y+1, this.current.getPiece())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void move_right(){
+		if(can_move_right()){
+			this.eraseBoardWithCurrentPiece();
+			this.y=this.y+1;
+			this.fillBoardWithCurrentPiece();
+		}
+	}
 	
 
 	public int[][] getBoard() {

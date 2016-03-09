@@ -16,22 +16,41 @@ public class MainIHM {
 //		displayBoard(bm.getBoard());
 		bm.fillBoardWithCurrentPiece();
 //		displayBoard(bm.getBoard());
-		bm.eraseBoardWithCurrentPiece();
-		displayBoard(bm.getBoard());
+//		bm.eraseBoardWithCurrentPiece();
+//		simple_displayBoard(bm.getBoard());
+//		bm.rotate_right();
+//		bm.rotate_right();
+//		bm.move_down();
+//		bm.move_left();
+		bm.move_right();
+//		bm.eraseBoardWithCurrentPiece();
+		simple_displayBoard(bm.getBoard());
 	}
+	
+	
+	//Affichage de la grille
+		public static void simple_displayBoard(int[][] board){
+			for(int i=0; i<board.length;i++){
+				for(int j=0;j<board[0].length;j++){
+					System.out.print("["+board[i][j]+"]");
+				}
+				System.out.println();
+			}
+		}
+	
 	
 	//Affichage de la grille
 	public static void displayBoard(int[][] board){
 		for(int i=0; i<board.length;i++){
 			for(int j=0;j<board[0].length;j++){
 				
-				/*Bord en bas à gauche*/
+				/*Bord en bas ï¿½ gauche*/
 				if(i==board.length-1 && j==0)
 				{
 					System.out.print("|_ ");
 				}
 				
-				/*Bord en bas à gauche*/
+				/*Bord en bas ï¿½ gauche*/
 				else if(i==board.length-1 && j==board[0].length-1)
 				{
 					System.out.print(" _|");
