@@ -12,7 +12,7 @@ public class MainIHM {
 		
 		System.out.println();
 		
-		BoardManager bm = new BoardManager(new int[21][10], 0, p, null);
+		BoardManager bm = new BoardManager(new int[21][10], 0, p, null,0,4);
 //		displayBoard(bm.getBoard());
 		bm.fillBoardWithCurrentPiece();
 //		displayBoard(bm.getBoard());

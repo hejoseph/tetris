@@ -7,13 +7,19 @@ public class BoardManager {
 	private int score;
 	private Piece current;
 	private Piece next;
+	
+	private int x;
+	private int y;
 
-	public BoardManager(int[][] board, int score, Piece current, Piece next) {
+	public BoardManager(int[][] board, int score, Piece current, Piece next, int x, int y) {
 		super();
 		this.board = board;
 		this.score = score;
 		this.current = current;
 		this.next = next;
+		this.x = x;
+		this.y = y;
+		
 		for (int i = 0; i < board[20].length; i++) {
 			board[20][i] = 1;
 		}
@@ -22,8 +28,8 @@ public class BoardManager {
 
 	public void fillBoardWithCurrentPiece() {
 		int a = 0;
-		for (int i = this.current.getX(); i < 4; i++) {
-			for (int j = this.current.getY(); j < 4; j++) {
+		for (int i = this.x; i < this.x+4; i++) {
+			for (int j = this.y; j < this.y+4; j++) {
 				if (this.board[i][j] == 0 && this.current.getPiece()[a] != 0) {
 					this.board[i][j] = this.current.getPiece()[a];
 				}
@@ -34,8 +40,8 @@ public class BoardManager {
 
 	public void eraseBoardWithCurrentPiece() {
 		int a = 0;
-		for (int i = this.current.getX(); i < 4; i++) {
-			for (int j = this.current.getY(); j < 4; j++) {
+		for (int i = this.x; i < 4; i++) {
+			for (int j = this.y; j < 4; j++) {
 				if (this.board[i][j] == this.current.getPiece()[a]) {
 					this.board[i][j] = 0;
 				}
@@ -47,8 +53,8 @@ public class BoardManager {
 	public boolean move_down() {
 		int a = 0;
 		this.eraseBoardWithCurrentPiece();
-		int y = this.current.getY() + 1;
-		for (int i = this.current.getX(); i < 4; i++) {
+		int y = this.y + 1;
+		for (int i = this.x; i < 4; i++) {
 			for (int j = y; j < 4; j++) {
 				if (this.board[i][j] !=0 && this.current.getPiece()[a]!=0) {
 					return false;
