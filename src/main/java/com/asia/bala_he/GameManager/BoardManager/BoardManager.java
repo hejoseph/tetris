@@ -45,6 +45,7 @@ public class BoardManager {
 	}
 
 	public boolean move_down() {
+		int a = 0;
 		this.eraseBoardWithCurrentPiece();
 		int y = this.current.getY() + 1;
 		for (int i = this.current.getX(); i < 4; i++) {
