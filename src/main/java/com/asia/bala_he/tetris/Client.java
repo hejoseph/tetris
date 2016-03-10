@@ -6,7 +6,7 @@ import java.net.*;
  *   d'appel en premier argument et utilise le port distant 8080.
  */
 public class Client {
-   static final int port = 8080;
+   static final int port = 8082;
 
    public static void main(String[] args) throws Exception {
         Socket socket = new Socket("127.0.0.1", port);

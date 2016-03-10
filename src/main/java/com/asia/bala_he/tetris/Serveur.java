@@ -3,7 +3,7 @@ import java.io.*;
 import java.net.*;
 
 public class Serveur {
-   static final int port = 8080;
+   static final int port = 8082;
 
    public static void main(String[] args) throws Exception {
         ServerSocket s = new ServerSocket(port);
