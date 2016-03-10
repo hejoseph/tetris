@@ -7,7 +7,10 @@ import com.asia.bala_he.GameManager.PieceManager.*;
 public class MainIHM {
 	public static void main(String[] args) {
 		System.out.println("hey");
-		Piece p = new PieceFactory().getPiece("1");
+		
+		String piece_num = chooseRandomnNumber_1to7() + "";
+	
+		Piece p = new PieceFactory().getPiece(piece_num);
 //		displayPiece(p.getData()[0]);
 		
 		System.out.println();
@@ -94,5 +97,13 @@ public class MainIHM {
 			}
 			System.out.print("["+piece[i]+"]");
 		}
+	}
+	
+	//Choose a random number between 1 and 7
+	public static int chooseRandomnNumber_1to7(){
+		
+		int piece_num = 1 + (int)(Math.random() * 7); 
+		
+		return piece_num;
 	}
 }
