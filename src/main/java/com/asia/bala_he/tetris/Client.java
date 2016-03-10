@@ -2,11 +2,12 @@ package com.asia.bala_he.tetris;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 /** Le processus client se connecte au site fourni dans la commande
  *   d'appel en premier argument et utilise le port distant 8080.
  */
 public class Client {
-   static final int port = 8082;
+   static final int port = 8085;
 
    public static void main(String[] args) throws Exception {
         Socket socket = new Socket("127.0.0.1", port);
@@ -22,14 +23,18 @@ public class Client {
                              true);
 
         String str = "bonjour";
-        for (int i = 0; i < 10; i++) {
-           pred.println(str);          // envoi d'un message
-           str = plec.readLine();      // lecture de l'écho
-        }
-        System.out.println("END");     // message de terminaison
+        Scanner sc = new Scanner(System.in);
+        String message_envoyé = sc.nextLine();
+        pred.println(message_envoyé); 
+        
         pred.println("END") ;
+        System.out.println("END"); 
+        
         plec.close();
         pred.close();
         socket.close();
+        
+        
+        
    }
 }
