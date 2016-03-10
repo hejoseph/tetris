@@ -28,7 +28,7 @@ public class MainIHM {
 		bm.move_right();
 //		bm.eraseBoardWithCurrentPiece();
 		simple_displayBoard(bm.getBoard());
-//		displayBoard(bm.getBoard());
+		displayBoard(bm.getBoard());
 	}
 	
 	
@@ -51,6 +51,18 @@ public class MainIHM {
 				/*Afficher la pi�ce*/
 				
 				if(board[i][j] != 0)
+				{
+					System.out.print("|_ ");
+				}
+				
+				/*Bord en bas � gauche*/
+				else if(i==board.length-1 && j==board[0].length-1)
+				{
+					System.out.print(" _|");
+				}
+				
+				/*Bord en bas � gauche*/
+				else if(i==board.length-1 && j==0)
 				{
 					System.out.print("|_ ");
 				}
