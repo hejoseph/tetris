@@ -1,7 +1,7 @@
 package com.asia.bala_he.GameManager.PieceManager;
 
 
-//piece static
+//role: create piece static
 public class PieceFactory {
 
 	//Récupérer une pièce avec les différentes postions de rotation selon l'id choisi
