@@ -20,11 +20,36 @@ public class BoardManager {
 		this.x = x;
 		this.y = y;
 		
-		for (int i = 0; i < board[20].length; i++) {
-			board[20][i] = 1;
-		}
+		/*for (int i = 0; i < board[20].length; i++) {
+			board[20][i] = 8;
+		}*/
+		
+		initiateBorders(board);
 
 	}
+	
+	//Initialisation des bords
+	public int[][] initiateBorders(int[][] board){
+		
+		for(int i=0; i<board.length;i++){
+			for(int j=0;j<board[0].length;j++){
+				
+				board[20][j] = 8;
+				
+				if(j==0 || j==board[0].length-1)
+				{
+					board[i][j] = 8;
+				}
+				
+			}
+			
+		}
+		
+		return board;
+	}
+	
+	
+	
 
 	public void fillBoardWithCurrentPiece() {
 		int a = 0;
