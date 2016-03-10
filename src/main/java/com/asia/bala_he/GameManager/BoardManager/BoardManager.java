@@ -1,7 +1,7 @@
 package com.asia.bala_he.GameManager.BoardManager;
 
 import com.asia.bala_he.GameManager.PieceManager.Piece;
-
+//role:handle piece in board, movement piece, 
 public class BoardManager {
 	private int[][] board;
 	private int score;
@@ -120,7 +120,7 @@ public class BoardManager {
 			this.fillBoardWithCurrentPiece();
 		}
 	}
-	
+
 	public boolean can_move_right(){
 		if(this.y<this.board.length-4){
 			if(possible_move(this.x, this.y+1, this.current.getPiece())){

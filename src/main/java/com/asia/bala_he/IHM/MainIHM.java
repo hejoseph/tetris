@@ -28,6 +28,7 @@ public class MainIHM {
 		bm.move_right();
 //		bm.eraseBoardWithCurrentPiece();
 		simple_displayBoard(bm.getBoard());
+//		displayBoard(bm.getBoard());
 	}
 	
 	
