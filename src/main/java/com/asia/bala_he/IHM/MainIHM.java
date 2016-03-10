@@ -15,7 +15,7 @@ public class MainIHM {
 		
 		System.out.println();
 		
-		BoardManager bm = new BoardManager(new int[21][10], 0, p, null,0,4);
+		BoardManager bm = new BoardManager(new int[21][10], 0, p, null,0,3);
 //		displayBoard(bm.getBoard());
 		bm.fillBoardWithCurrentPiece();
 //		displayBoard(bm.getBoard());
@@ -27,7 +27,9 @@ public class MainIHM {
 //		bm.move_left();
 		bm.move_right();
 //		bm.eraseBoardWithCurrentPiece();
-		simple_displayBoard(bm.getBoard());
+		//simple_displayBoard(bm.getBoard());
+		displayPiece(p.getData()[0]);
+		System.out.println();
 		displayBoard(bm.getBoard());
 	}
 	
@@ -48,59 +50,30 @@ public class MainIHM {
 		for(int i=0; i<board.length;i++){
 			for(int j=0;j<board[0].length;j++){
 				
-				/*Afficher la pi�ce*/
+				/*Afficher la pièce*/
 				
-				if(board[i][j] != 0)
+				if(board[i][j] != 0 && board[i][j] !=8)
 				{
-					System.out.print("|_ ");
+					System.out.print("["+board[i][j]+"]");
 				}
 				
-				/*Bord en bas � gauche*/
-				else if(i==board.length-1 && j==board[0].length-1)
-				{
-					System.out.print(" _|");
-				}
-				
-				/*Bord en bas � gauche*/
-				else if(i==board.length-1 && j==0)
-				{
-					System.out.print("|_ ");
-				}
-				
-				/*Bord en bas � gauche*/
-				else if(i==board.length-1 && j==board[0].length-1)
-				{
-					System.out.print(" _|");
-				}
-				
-				/*Bord en bas � gauche*/
-				else if(i==board.length-1 && j==0)
-				{
-					System.out.print("|_ ");
-				}
-				
-				/*Bord en bas � gauche*/
-				else if(i==board.length-1 && j==board[0].length-1)
-				{
-					System.out.print(" _|");
-				}
 				
 				/*Bord de gauche*/
 				else if(j==0)
 				{
-					System.out.print("|  ");
+					System.out.print("[8][8]");
 				}
 				
 				/*Bord de droite*/
 				else if(j == board[0].length-1)
 				{
-					System.out.print("  |");
+					System.out.print("[8][8]");
 				}
 				
 				/*Bord du bas*/
-				else if(i==board.length-1 && (j!=0 && j!=board[0].length-1 ))
+				else if(i==board.length-1 )
 				{
-					System.out.print(" _ ");
+					System.out.print("["+board[i][j]+"]");
 				}
 				
 				/*Espacement de la grille*/
@@ -111,6 +84,12 @@ public class MainIHM {
 				
 			}
 			System.out.println();
+			
+		}
+		//Afichage de la deuxieme bord en bas
+		for (int i = 0; i < board[20].length+2; i++) 
+		{
+			System.out.print("[8]");
 		}
 		
 		
