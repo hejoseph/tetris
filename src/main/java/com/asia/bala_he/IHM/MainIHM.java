@@ -8,7 +8,10 @@ import com.asia.bala_he.GameManager.PieceManager.PieceManager;
 
 public class MainIHM {
 	public static void main(String[] args) {
-		System.out.println("hey");
+		
+		WelcomeText text = new WelcomeText();
+		
+//		System.out.println("hey");
 		
 //		String piece_num = chooseRandomnNumber_1to7() + "";
 //	
