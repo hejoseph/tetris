@@ -1,0 +1,17 @@
+	[W]               [W]	[E][E][E][E]	[L]					[C][C][C]		[O][O]		 [M]	        [M]	  [E][E][E][E]	  *
+	[W]				  [W]	[E]				[L]				[C]				[O]		   [O]	 [M][M]		 [M][M]	  [E]			  *
+	[W]               [W]	[E]				[L]				[C]				[O]		   [O]	 [M]  [M] [M]	[M]	  [E]			  *
+	[W]               [W]	[E][E][E][E]	[L]				[C]				[O]		   [O]	 [M]	[M]		[M]	  [E][E][E][E]	  *
+	[W]      [W]	  [W]	[E]				[L]				[C]				[O]		   [O]	 [M]	 	    [M]	  [E]			  *
+	[W]   [W]   [W]   [W]	[E]				[L]				[C]				[O]		   [O]	 [M]		    [M]	  [E]			  *
+	   [W]         [W]		[E][E][E][E]	[L][L][L][L]	 	[C][C][C]		[O][O]		 [M]		    [M]	  [E][E][E][E]	  *
+	   																															  *
+	   																															  *
+ 																																  *
+[T][T][T][T][T]		[O][O]					[M]			   [M]	[U]		   [U]	[T][T][T][T][T]	 [R][R][R] 	   [I]	  [S][S][S][S]*
+	  [T]		[O]        [O]				[M][M]      [M][M]	[U]    	   [U]        [T]		 [R]	 [R]   [I]	[S]			  *
+	  [T]		[O]        [O]				[M]	 [M]  [M]  [M]	[U]	 	   [U]        [T]		 [R]	[R]	   [I]	[S]			  *
+	  [T]		[O]        [O]				[M]	    [M]    [M]	[U]	       [U]        [T]		 [R] [R]	   [I]	  [S][S][S]	  *
+      [T]		[O]		   [O]				[M]            [M]	[U]        [U]        [T]		 [R]  [R]	   [I]			  [S] *
+	  [T]		[O]	       [O]				[M]			   [M]	[U]		   [U]        [T]		 [R]    [R]    [I]			  [S] *
+	  [T]			[O][O]					[M]			   [M]		[U][U]       	  [T]		 [R]  	  [R]  [I]	[S][S][S][S]  *	
