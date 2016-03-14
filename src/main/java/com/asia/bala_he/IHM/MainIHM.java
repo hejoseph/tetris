@@ -8,7 +8,6 @@ import com.asia.bala_he.GameManager.PieceManager.PieceManager;
 
 public class MainIHM {
 	public static void main(String[] args) {
-		
 		WelcomeText text = new WelcomeText();
 		
 //		System.out.println("hey");
