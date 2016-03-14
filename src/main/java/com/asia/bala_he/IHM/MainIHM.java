@@ -17,7 +17,7 @@ public class MainIHM {
 //	
 //		Piece p = new PieceFactory().getPiece(piece_num);
 //		displayPiece(p.getData()[0]);
-		
+
 		System.out.println();
 		PieceManager pm = new PieceManager(new PieceFactory());
 		BoardManager bm = new BoardManager(new int[21][10], pm.generateRandomPiece(), null,0,3);
