@@ -1,5 +1,7 @@
 package com.asia.bala_he.IHM;
 
+import java.io.IOException;
+
 import com.asia.bala_he.GameManager.Game;
 import com.asia.bala_he.GameManager.BoardManager.BoardManager;
 import com.asia.bala_he.GameManager.PieceManager.PieceFactory;
@@ -8,8 +10,12 @@ import com.asia.bala_he.GameManager.PieceManager.PieceManager;
 
 public class MainIHM {
 	public static void main(String[] args) {
+
+
 		
 		//WelcomeText text = new WelcomeText();
+
+
 		
 //		System.out.println("hey");
 		
@@ -17,13 +23,13 @@ public class MainIHM {
 //	
 //		Piece p = new PieceFactory().getPiece(piece_num);
 //		displayPiece(p.getData()[0]);
-
-		System.out.println();
-		PieceManager pm = new PieceManager(new PieceFactory());
-		BoardManager bm = new BoardManager(new int[21][10], pm.generateRandomPiece(), null,0,3);
-		Game g = new Game(bm,pm);
-		Thread t = new Thread(g,"game");
-		t.start();
+		
+//		System.out.println();
+//		PieceManager pm = new PieceManager(new PieceFactory());
+//		BoardManager bm = new BoardManager(new int[21][10], pm.generateRandomPiece(), null,0,3);
+//		Game g = new Game(bm,pm);
+//		Thread t = new Thread(g,"game");
+//		t.start();
 //		displayBoard(bm.getBoard());
 //		bm.fillBoardWithCurrentPiece();
 //		displayBoard(bm.getBoard());
@@ -39,6 +45,26 @@ public class MainIHM {
 //		displayPiece(bm.getCurrent().getData()[0]);
 //		System.out.println();
 //		displayBoard(bm.getBoard());
+		
+		
+		while(true){
+			
+			int read;
+			try {
+				read = RawConsoleInput.read(false);
+				System.out.println(read);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	
