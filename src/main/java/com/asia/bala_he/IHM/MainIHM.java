@@ -25,11 +25,14 @@ public class MainIHM {
 //		displayPiece(p.getData()[0]);
 		
 //		System.out.println();
-//		PieceManager pm = new PieceManager(new PieceFactory());
-//		BoardManager bm = new BoardManager(new int[21][10], pm.generateRandomPiece(), null,0,3);
-//		Game g = new Game(bm,pm);
-//		Thread t = new Thread(g,"game");
-//		t.start();
+		PieceManager pm = new PieceManager(new PieceFactory());
+		BoardManager bm = new BoardManager(new int[21][10], pm.generateRandomPiece(), null,0,3);
+		Game g = new Game(bm,pm);
+		Thread t = new Thread(g,"game");
+		Thread k = new KeyboardManager(g);
+		// g.playAGame();
+		t.start();
+		k.start();
 //		displayBoard(bm.getBoard());
 //		bm.fillBoardWithCurrentPiece();
 //		displayBoard(bm.getBoard());
@@ -47,24 +50,28 @@ public class MainIHM {
 //		displayBoard(bm.getBoard());
 		
 		
-		while(true){
+		// while(true){
 			
-			int read;
-			try {
-				read = RawConsoleInput.read(false);
-				System.out.println(read);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		// 	int read;
+		// 	try {
+		// 		read = RawConsoleInput.read(false);
+		// 		if(read==10){
+		// 			System.exit(0);
+		// 		}
+		// 		System.out.println(read);
+		// 	} catch (IOException e) {
+		// 		// TODO Auto-generated catch block
+		// 		e.printStackTrace();
+		// 	}
 			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		// 	try {
+		// 		Thread.sleep(500);
+		// 	} catch (InterruptedException e) {
+		// 		// TODO Auto-generated catch block
+		// 		e.printStackTrace();
+		// 	}
+
+		// }
 	}
 	
 	

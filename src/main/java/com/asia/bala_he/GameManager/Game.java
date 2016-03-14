@@ -2,9 +2,11 @@ package com.asia.bala_he.GameManager;
 
 import com.asia.bala_he.GameManager.BoardManager.BoardManager;
 import com.asia.bala_he.GameManager.PieceManager.PieceManager;
+import com.asia.bala_he.IHM.RawConsoleInput;
+import java.io.IOException;
 
 //role:handle a tetris game,
-public class Game implements Runnable {
+public class Game implements Runnable{
 	private BoardManager bm;
 	private PieceManager pm;
 	private int score;
@@ -22,22 +24,35 @@ public class Game implements Runnable {
 		this.playAGame();
 	}
 
+	public BoardManager getBoardManager(){
+		return this.bm;
+	}
+
+	public boolean getEndOfGame(){
+		return this.endOfGame;
+	}
+
 	public boolean isEndOfGame() {
 		for(int i=0;i<bm.getBoard()[0].length;i++){
 			if(bm.getBoardValueAt(0, i)!=8 && bm.getBoardValueAt(0, i)!=0){
 				System.out.println("End Of Game !");
-				return true;
+				this.endOfGame = true;
+				return this.endOfGame;
 			}
 		}
 		return false;
 	}
 
-	private void playAGame() {
+	public void playAGame() {
 		System.out.println("playing game");
+		
 		while (!isEndOfGame()) {
+			// System.out.print("\033[H\033[2J");  
+   //  		System.out.flush();
+			
 			bm.fillBoardWithCurrentPiece();
 //			displayPiece(bm.getCurrent().getPiece());
-			displayBoard(bm.getBoard());
+			// displayBoard();
 //			simple_display_board(bm.getBoard());
 			if(bm.can_move_down()){
 				bm.move_down();
@@ -45,10 +60,12 @@ public class Game implements Runnable {
 				bm.setX(0);
 				bm.setCurrent(pm.generateRandomPiece());
 			}
-			displayBoard(bm.getBoard());
+			// bm.move_right();
+			displayBoard();
+			
 //			simple_display_board(bm.getBoard());
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,8 +118,8 @@ public class Game implements Runnable {
 //
 //	}
 	
-	public void displayBoard(int[][] board){
-		for(int[] x : board){
+	public void displayBoard(){
+		for(int[] x : this.bm.getBoard()){
 			for(int y : x){
 				if(y!=0){
 					System.out.print("["+y+"]");
