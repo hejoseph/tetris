@@ -24,8 +24,8 @@ public class Client {
 
         String str = "bonjour";
         Scanner sc = new Scanner(System.in);
-        String message_envoyé = sc.nextLine();
-        pred.println(message_envoyé); 
+        String message_envoye = sc.nextLine();
+        pred.println(message_envoye); 
         
         pred.println("END") ;
         System.out.println("END"); 
