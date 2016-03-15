@@ -17,6 +17,8 @@ public class BoardManager {
 
 	private int x;
 	private int y;
+	
+	public int rowToDelete;
 
 	public BoardManager(int[][] board, Piece current, Piece next, int x, int y) {
 		// this.score = score;
@@ -220,6 +222,52 @@ public class BoardManager {
 			this.fillBoardWithCurrentPiece();
 		}
 	}
+	
+	public boolean checkIfRowFilled() {
+		int count = 0;
+		
+		for (int i  = 0; i <= this.board.length-4; i++)
+		{
+			count=0;
+			for (int j = 0; j < this.board[0].length; j++) {
+				if (this.board[i][j] != 0 && this.board[i][j] != 8 ) {
+					count++;
+					this.rowToDelete = i;
+				}
+				
+			}
+			if(count == 12){
+				System.out.println(count);
+				return true;
+			}
+		
+		}		
+		return false;
+	}
+	
+	public void deleteFilledRow(int row_num) {
+		for (int j = 0; j < board[0].length; j++) 
+		{
+			if(this.board[row_num][j] != 8){
+				this.board[row_num][j] = 0;
+			}
+			
+		}
+		
+		for (int i = row_num; i >= 0; i--) {
+			for (int j = 0; j < board[0].length; j++) {
+				if(this.board[i][j] != 8 && this.board[i][j] != 0  ){
+					this.board[i+1][j] = this.board[i][j];
+					this.board[i][j] = 0;
+				}
+				
+			}
+		}
+		
+		
+	}
+	
+	
 
 	public int[][] getBoard() {
 		return board;
