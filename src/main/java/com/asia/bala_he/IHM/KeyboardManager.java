@@ -36,7 +36,7 @@ public class KeyboardManager extends Thread{
                     this.g.displayBoard();
                 }
                 // try{
-                //     Thread.sleep(500);
+                //     Thread.sleep(250);
                 // }catch(Exception e){
                 //     e.printStackTrace();
                 // }

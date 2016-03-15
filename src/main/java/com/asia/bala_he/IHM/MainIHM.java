@@ -15,10 +15,6 @@ public class MainIHM {
 		
 		//WelcomeText text = new WelcomeText();
 
-
-		
-//		System.out.println("hey");
-		
 //		String piece_num = chooseRandomnNumber_1to7() + "";
 //	
 //		Piece p = new PieceFactory().getPiece(piece_num);
@@ -26,13 +22,19 @@ public class MainIHM {
 		
 //		System.out.println();
 		PieceManager pm = new PieceManager(new PieceFactory());
-		BoardManager bm = new BoardManager(new int[21][10], pm.generateRandomPiece(), null,0,3);
+		BoardManager bm = new BoardManager(new int[21][18], pm.generateRandomPiece(), null,0,3);
 		Game g = new Game(bm,pm);
 		Thread t = new Thread(g,"game");
 		Thread k = new KeyboardManager(g);
-		// g.playAGame();
+		// // // g.playAGame();
 		t.start();
 		k.start();
+
+		Thread d = new DisplayManager(g);
+		d.start();
+
+
+
 //		displayBoard(bm.getBoard());
 //		bm.fillBoardWithCurrentPiece();
 //		displayBoard(bm.getBoard());

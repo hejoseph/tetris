@@ -32,27 +32,26 @@ public class Game implements Runnable{
 		return this.endOfGame;
 	}
 
-	public boolean isEndOfGame() {
+	public void isEndOfGame() {
 		for(int i=0;i<bm.getBoard()[0].length;i++){
 			if(bm.getBoardValueAt(0, i)!=8 && bm.getBoardValueAt(0, i)!=0){
 				System.out.println("End Of Game !");
 				this.endOfGame = true;
-				return this.endOfGame;
 			}
 		}
-		return false;
 	}
 
 	public void playAGame() {
 		System.out.println("playing game");
 		
-		while (!isEndOfGame()) {
+		while (!this.endOfGame) {
 			// System.out.print("\033[H\033[2J");  
    //  		System.out.flush();
 			
 			bm.fillBoardWithCurrentPiece();
 //			displayPiece(bm.getCurrent().getPiece());
 			// displayBoard();
+			
 //			simple_display_board(bm.getBoard());
 			if(bm.can_move_down()){
 				bm.move_down();
@@ -61,16 +60,22 @@ public class Game implements Runnable{
 				bm.setCurrent(pm.generateRandomPiece());
 			}
 			// bm.move_right();
-			displayBoard();
+			// displayBoard();
 			
 //			simple_display_board(bm.getBoard());
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			// if(bm.can_move_right()){
+			// 	System.out.println("right");
+			// 	bm.move_right();
+			// }
+			this.isEndOfGame();
 		}
+		System.exit(0);
 	}
 
 	// Affichage de la grille = function noob
@@ -117,19 +122,51 @@ public class Game implements Runnable{
 //		System.out.println();
 //
 //	}
+
+	public static void clear(){
+		System.out.print("\033[H\033[2J");  
+    	System.out.flush();
+		try{
+   	 		if(System.getProperty("os.name" ).startsWith("Windows" ))
+			  Runtime.getRuntime().exec("cls" );
+			else
+			  Runtime.getRuntime().exec("clear" );
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	
 	public void displayBoard(){
-		for(int[] x : this.bm.getBoard()){
-			for(int y : x){
-				if(y!=0){
-					System.out.print("["+y+"]");
-				}else{
+		clear();
+		int[][] board = this.bm.getBoard();
+		for(int l=0;l<board.length-2;l++){
+			for(int c=2;c<board[0].length-2;c++){
+				if(board[l][c]==0){
 					System.out.print("   ");
+				}else{
+					System.out.print("[X]");
 				}
-				
+				// }else if(board[l][c]==0){
+					// System.out.print("   ");
+				// }else{
+				// }
 			}
 			System.out.println();
 		}
+		// System.out.println();
+
+
+		// for(int[] x : this.bm.getBoard()){
+		// 	for(int y : x){
+		// 		if(y!=0){
+		// 			System.out.print("["+y+"]");
+		// 		}else{
+		// 			System.out.print("   ");
+		// 		}
+				
+		// 	}
+		// 	System.out.println();
+		// }
 	}
 	
 	public void displayPiece(int[] piece){
