@@ -61,8 +61,7 @@ public class MainIHM {
 //		displayBoard(bm.getBoard());
 		
 		
-		// while(true){
-			
+
 		// 	int read;
 		// 	try {
 		// 		read = RawConsoleInput.read(false);
