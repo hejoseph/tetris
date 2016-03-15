@@ -6,6 +6,7 @@ import com.asia.bala_he.GameManager.Game;
 import com.asia.bala_he.GameManager.BoardManager.BoardManager;
 import com.asia.bala_he.GameManager.PieceManager.PieceFactory;
 import com.asia.bala_he.GameManager.PieceManager.PieceManager;
+import java.util.*;
 
 
 public class MainIHM {
@@ -26,14 +27,22 @@ public class MainIHM {
 		Game g = new Game(bm,pm);
 		Thread t = new Thread(g,"game");
 		Thread k = new KeyboardManager(g);
-		// // // g.playAGame();
+		// // g.playAGame();
 		t.start();
 		k.start();
 
 		Thread d = new DisplayManager(g);
 		d.start();
 
-
+		// while(true){
+		// 	g.displayBoard();
+		// 	try {
+		// 		Thread.sleep(500);
+		// 	} catch (InterruptedException e) {
+		// 		// TODO Auto-generated catch block
+		// 		e.printStackTrace();
+		// 	}
+		// }
 
 //		displayBoard(bm.getBoard());
 //		bm.fillBoardWithCurrentPiece();

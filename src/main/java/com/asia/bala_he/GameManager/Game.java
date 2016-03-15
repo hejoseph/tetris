@@ -56,6 +56,7 @@ public class Game implements Runnable{
 			if(bm.can_move_down()){
 				bm.move_down();
 			}else{
+				this.isEndOfGame();
 				bm.setX(0);
 				bm.setCurrent(pm.generateRandomPiece());
 			}
@@ -73,7 +74,6 @@ public class Game implements Runnable{
 			// 	System.out.println("right");
 			// 	bm.move_right();
 			// }
-			this.isEndOfGame();
 		}
 		System.exit(0);
 	}
@@ -138,22 +138,26 @@ public class Game implements Runnable{
 	
 	public void displayBoard(){
 		clear();
+		String d ="";
 		int[][] board = this.bm.getBoard();
 		for(int l=0;l<board.length-2;l++){
 			for(int c=2;c<board[0].length-2;c++){
 				if(board[l][c]==0){
-					System.out.print("   ");
+					// System.out.print("   ");
+					d+="   ";
 				}else{
-					System.out.print("[X]");
+					// System.out.print("[X]");
+					d+="[X]";
 				}
 				// }else if(board[l][c]==0){
 					// System.out.print("   ");
 				// }else{
 				// }
 			}
-			System.out.println();
+			// System.out.println();
+			d+="\n";
 		}
-		// System.out.println();
+		System.out.println(d);
 
 
 		// for(int[] x : this.bm.getBoard()){
