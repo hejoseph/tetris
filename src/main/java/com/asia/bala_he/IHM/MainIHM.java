@@ -47,23 +47,43 @@ public class MainIHM {
 //		displayBoard(bm.getBoard());
 		
 		
+//		while(true){
+//			
+//			int read;
+//			try {
+//				read = RawConsoleInput.read(false);
+//				System.out.println(read);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		while(true){
 			
-			int read;
-			try {
-				read = RawConsoleInput.read(false);
-				System.out.println(read);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
+		try {
+            //Collection<Character> result = new ArrayList<>();
+            int read = RawConsoleInput.read(false);
+            
+            while (read != -2){
+            	
+            	if(read==27){
+            		return ;
+            	}
+                //result.add((char) read);
+                System.out.println(read);
+                break;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Impossible to read from the stdin", e);
+        }
 		}
 	}
 	
