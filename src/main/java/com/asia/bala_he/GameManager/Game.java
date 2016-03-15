@@ -2,9 +2,11 @@ package com.asia.bala_he.GameManager;
 
 import com.asia.bala_he.GameManager.BoardManager.BoardManager;
 import com.asia.bala_he.GameManager.PieceManager.PieceManager;
+import com.asia.bala_he.IHM.RawConsoleInput;
+import java.io.IOException;
 
 //role:handle a tetris game,
-public class Game implements Runnable {
+public class Game implements Runnable{
 	private BoardManager bm;
 	private PieceManager pm;
 	private int score;
@@ -22,22 +24,34 @@ public class Game implements Runnable {
 		this.playAGame();
 	}
 
-	public boolean isEndOfGame() {
+	public BoardManager getBoardManager(){
+		return this.bm;
+	}
+
+	public boolean getEndOfGame(){
+		return this.endOfGame;
+	}
+
+	public void isEndOfGame() {
 		for(int i=0;i<bm.getBoard()[0].length;i++){
 			if(bm.getBoardValueAt(0, i)!=8 && bm.getBoardValueAt(0, i)!=0){
 				System.out.println("End Of Game !");
-				return true;
+				this.endOfGame = true;
 			}
 		}
-		return false;
 	}
 
-	private void playAGame() {
+	public void playAGame() {
 		System.out.println("playing game");
-		while (!isEndOfGame()) {
+		
+		while (!this.endOfGame) {
+			// System.out.print("\033[H\033[2J");  
+   //  		System.out.flush();
+			
 			bm.fillBoardWithCurrentPiece();
 //			displayPiece(bm.getCurrent().getPiece());
-			displayBoard(bm.getBoard());
+			// displayBoard();
+			
 //			simple_display_board(bm.getBoard());
 			if(bm.can_move_down()){
 				bm.move_down();
@@ -45,15 +59,23 @@ public class Game implements Runnable {
 				bm.setX(0);
 				bm.setCurrent(pm.generateRandomPiece());
 			}
-			displayBoard(bm.getBoard());
+			// bm.move_right();
+			// displayBoard();
+			
 //			simple_display_board(bm.getBoard());
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			// if(bm.can_move_right()){
+			// 	System.out.println("right");
+			// 	bm.move_right();
+			// }
+			this.isEndOfGame();
 		}
+		System.exit(0);
 	}
 
 	// Affichage de la grille = function noob
@@ -100,19 +122,51 @@ public class Game implements Runnable {
 //		System.out.println();
 //
 //	}
+
+	public static void clear(){
+		System.out.print("\033[H\033[2J");  
+    	System.out.flush();
+		try{
+   	 		if(System.getProperty("os.name" ).startsWith("Windows" ))
+			  Runtime.getRuntime().exec("cls" );
+			else
+			  Runtime.getRuntime().exec("clear" );
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	
-	public void displayBoard(int[][] board){
-		for(int[] x : board){
-			for(int y : x){
-				if(y!=0){
-					System.out.print("["+y+"]");
-				}else{
+	public void displayBoard(){
+		clear();
+		int[][] board = this.bm.getBoard();
+		for(int l=0;l<board.length-2;l++){
+			for(int c=2;c<board[0].length-2;c++){
+				if(board[l][c]==0){
 					System.out.print("   ");
+				}else{
+					System.out.print("[X]");
 				}
-				
+				// }else if(board[l][c]==0){
+					// System.out.print("   ");
+				// }else{
+				// }
 			}
 			System.out.println();
 		}
+		// System.out.println();
+
+
+		// for(int[] x : this.bm.getBoard()){
+		// 	for(int y : x){
+		// 		if(y!=0){
+		// 			System.out.print("["+y+"]");
+		// 		}else{
+		// 			System.out.print("   ");
+		// 		}
+				
+		// 	}
+		// 	System.out.println();
+		// }
 	}
 	
 	public void displayPiece(int[] piece){

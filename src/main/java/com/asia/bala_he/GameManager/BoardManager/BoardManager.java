@@ -87,19 +87,22 @@ public class BoardManager {
 		for (int i = 0; i < board.length; i++) {
 			board[i][0] = 8;
 			board[i][1] = 8;
+			board[i][2] = 8;
 			board[i][board[0].length - 1] = 8;
 			board[i][board[0].length - 2] = 8;
+			board[i][board[0].length - 3] = 8;
 		}
 		for (int i = 0; i < board[0].length; i++) {
 			board[board.length - 1][i] = 8;
 			board[board.length - 2][i] = 8;
+			board[board.length - 3][i] = 8;
 		}
 		return board;
 	}
 
 	public void fillBoardWithCurrentPiece() {
 		int a = 0;
-		System.out.println("x:"+this.x+" y:"+this.y);
+		// System.out.println("x:"+this.x+" y:"+this.y);
 		for (int i = this.x; i < this.x + 4; i++) {
 			for (int j = this.y; j < this.y + 4; j++) {
 				if (this.board[i][j] == 0 && this.current.getPiece()[a] != 0) {
@@ -124,12 +127,12 @@ public class BoardManager {
 
 	// return true if current piece can move down
 	public boolean can_move_down() {
-		this.eraseBoardWithCurrentPiece();
+		// this.eraseBoardWithCurrentPiece();
 		if (possible_move(this.x + 1, this.y, this.current.getPiece())) {
-			this.fillBoardWithCurrentPiece();
+			// this.fillBoardWithCurrentPiece();
 			return true;
 		}
-		this.fillBoardWithCurrentPiece();
+		// this.fillBoardWithCurrentPiece();
 		return false;
 	}
 
@@ -145,15 +148,18 @@ public class BoardManager {
 
 	// check if current piece is overlapping another piece on the board
 	public boolean possible_move(int x, int y, int[] pieceToTest) {
+		this.eraseBoardWithCurrentPiece();
 		int a = 0;
 		for (int i = x; i < x+4; i++) {
 			for (int j = y; j < y+4; j++) {
 				if (this.board[i][j] != 0 && pieceToTest[a] != 0) {
+					this.fillBoardWithCurrentPiece();
 					return false;
 				}
 				a++;
 			}
 		}
+		this.fillBoardWithCurrentPiece();
 		return true;
 	}
 
@@ -196,8 +202,11 @@ public class BoardManager {
 	}
 
 	public boolean can_move_right() {
+		
+		System.out.println("taille :" +this.board.length+", y="+this.y);
 		if (this.y < this.board.length - 4) {
 			if (possible_move(this.x, this.y + 1, this.current.getPiece())) {
+				
 				return true;
 			}
 		}

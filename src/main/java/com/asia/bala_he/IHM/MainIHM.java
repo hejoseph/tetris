@@ -15,21 +15,26 @@ public class MainIHM {
 		
 		//WelcomeText text = new WelcomeText();
 
-
-		
-//		System.out.println("hey");
-		
 //		String piece_num = chooseRandomnNumber_1to7() + "";
 //	
 //		Piece p = new PieceFactory().getPiece(piece_num);
 //		displayPiece(p.getData()[0]);
 		
 //		System.out.println();
-//		PieceManager pm = new PieceManager(new PieceFactory());
-//		BoardManager bm = new BoardManager(new int[21][10], pm.generateRandomPiece(), null,0,3);
-//		Game g = new Game(bm,pm);
-//		Thread t = new Thread(g,"game");
-//		t.start();
+		PieceManager pm = new PieceManager(new PieceFactory());
+		BoardManager bm = new BoardManager(new int[21][18], pm.generateRandomPiece(), null,0,3);
+		Game g = new Game(bm,pm);
+		Thread t = new Thread(g,"game");
+		Thread k = new KeyboardManager(g);
+		// // // g.playAGame();
+		t.start();
+		k.start();
+
+		Thread d = new DisplayManager(g);
+		d.start();
+
+
+
 //		displayBoard(bm.getBoard());
 //		bm.fillBoardWithCurrentPiece();
 //		displayBoard(bm.getBoard());
@@ -47,44 +52,27 @@ public class MainIHM {
 //		displayBoard(bm.getBoard());
 		
 		
-//		while(true){
-//			
-//			int read;
-//			try {
-//				read = RawConsoleInput.read(false);
-//				System.out.println(read);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			
-//			try {
-//				Thread.sleep(1000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-		while(true){
+
+		// 	int read;
+		// 	try {
+		// 		read = RawConsoleInput.read(false);
+		// 		if(read==10){
+		// 			System.exit(0);
+		// 		}
+		// 		System.out.println(read);
+		// 	} catch (IOException e) {
+		// 		// TODO Auto-generated catch block
+		// 		e.printStackTrace();
+		// 	}
 			
-		
-		try {
-            //Collection<Character> result = new ArrayList<>();
-            int read = RawConsoleInput.read(false);
-            
-            while (read != -2){
-            	
-            	if(read==27){
-            		return ;
-            	}
-                //result.add((char) read);
-                System.out.println(read);
-                break;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Impossible to read from the stdin", e);
-        }
-		}
+		// 	try {
+		// 		Thread.sleep(500);
+		// 	} catch (InterruptedException e) {
+		// 		// TODO Auto-generated catch block
+		// 		e.printStackTrace();
+		// 	}
+
+		// }
 	}
 	
 	
