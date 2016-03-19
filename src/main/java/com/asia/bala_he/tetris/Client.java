@@ -7,34 +7,39 @@ import java.util.Scanner;
  *   d'appel en premier argument et utilise le port distant 8080.
  */
 public class Client {
-   static final int port = 8085;
-
-   public static void main(String[] args) throws Exception {
-        Socket socket = new Socket("127.0.0.1", port);
-        System.out.println("SOCKET = " + socket);
-
-        BufferedReader plec = new BufferedReader(
-                               new InputStreamReader(socket.getInputStream())
-                               );
-
-        PrintWriter pred = new PrintWriter(
-                             new BufferedWriter(
-                                new OutputStreamWriter(socket.getOutputStream())),
-                             true);
-
-        String str = "bonjour";
-        Scanner sc = new Scanner(System.in);
-        String message_envoye = sc.nextLine();
-        pred.println(message_envoye); 
-        
-        pred.println("END") ;
-        System.out.println("END"); 
-        
-        plec.close();
-        pred.close();
-        socket.close();
-        
-        
-        
-   }
+   static final int port = 8078;
+  
+   
+   public static void main(String[] args){
+		
+		Socket socket;
+		try {
+			socket = new Socket("127.0.0.1",8078);
+			//socket.close();
+			
+			Thread com = new Thread(new ReadInputThread(socket));
+		    com.start();
+	
+			
+	
+			PrintWriter out = new PrintWriter(
+	              new BufferedWriter(
+	                 new OutputStreamWriter(socket.getOutputStream())),
+	              true);
+			
+			while (true) {	
+	
+		        Scanner sc = new Scanner(System.in);
+		        String message_envoye = sc.nextLine();
+		     
+		        out.println(message_envoye); 
+		    
+		    }
+		
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+	}
+ 
 }

@@ -1,37 +1,24 @@
 package com.asia.bala_he.tetris;
-import java.io.*;
+import java.util.List;
 import java.net.*;
-
-import java.io.*;
-import java.net.*;
+import java.util.ArrayList;
 
 public class Serveur {
-   static final int port = 8085;
+   static final int port = 8078;
+   
+   private static List<Socket> clients = new ArrayList<Socket>();
+   
+   
 
    public static void main(String[] args) throws Exception {
         ServerSocket s = new ServerSocket(port);
-        Socket soc = s.accept();
-
-        // Un BufferedReader permet de lire par ligne.
-        BufferedReader plec = new BufferedReader(
-                               new InputStreamReader(soc.getInputStream())
-                              );
-
-        // Un PrintWriter possède toutes les opérations print classiques.
-        // En mode auto-flush, le tampon est vidé (flush) à l'appel de println.
-        PrintWriter pred = new PrintWriter(
-                             new BufferedWriter(
-                                new OutputStreamWriter(soc.getOutputStream())), 
-                             true);
-
-        while (true) {
-           String str = plec.readLine();          // lecture du message
-           if (str.equals("END")) break;
-           System.out.println("ECHO = " + str);   // trace locale
-           pred.println(str);                     // renvoi d'un écho
-        }
-        plec.close();
-        pred.close();
-        soc.close();
+       // Socket soc = s.accept();
+        Thread t = new Thread(new connectClient(s,clients));
+        t.start();
+        
+        
    }
+   
+   
 }
+
