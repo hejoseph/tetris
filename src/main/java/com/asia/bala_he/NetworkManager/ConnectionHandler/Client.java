@@ -1,8 +1,10 @@
-package com.asia.bala_he.tetris;
+package com.asia.bala_he.NetworkManager.ConnectionHandler;
 
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
+
+import com.asia.bala_he.NetworkManager.MessageHandler.ReadInputThread;
 /** Le processus client se connecte au site fourni dans la commande
  *   d'appel en premier argument et utilise le port distant 8080.
  */

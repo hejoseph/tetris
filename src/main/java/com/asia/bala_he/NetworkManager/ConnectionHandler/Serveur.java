@@ -1,4 +1,4 @@
-package com.asia.bala_he.tetris;
+package com.asia.bala_he.NetworkManager.ConnectionHandler;
 import java.util.List;
 import java.net.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class Serveur {
    public static void main(String[] args) throws Exception {
         ServerSocket s = new ServerSocket(port);
        // Socket soc = s.accept();
-        Thread t = new Thread(new connectClient(s,clients));
+        Thread t = new Thread(new ClientConnexionThread(s,clients));
         t.start();
         
         
