@@ -16,9 +16,10 @@ public class SendMessageToAll implements Runnable {
 	private List<Socket> clients;
 	
 	private BufferedReader in;
-	private PrintWriter out;
 	
 	private String str;
+	private boolean eow = true;
+
 	
 	public SendMessageToAll(Socket s, List<Socket> clients){
 		this.socket = s;
@@ -39,16 +40,27 @@ public class SendMessageToAll implements Runnable {
 			e.printStackTrace();
 		}
 		
-		while(true)
+		while(eow)
 		{
 			
 
 			
 			try {
 				str = in.readLine();
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				try {
+					socket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					
+					
+				}
+				eow=false;
+				break;
 			}	
 				
 			for (int i = 0; i < this.clients.size(); i++){
@@ -59,28 +71,21 @@ public class SendMessageToAll implements Runnable {
 					if(str.equals("malus")){
 						
 						try {
+							PrintWriter out;
 							out = new PrintWriter(
 							    new BufferedWriter(
 							         new OutputStreamWriter(this.clients.get(i).getOutputStream())), 
 							      true);
-							out.println("oh shit");
+							out.println("shit");							
+							
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
-						
-	
-					}
-					if(str.equals("quit")){
-						
-					
-							//this.clients.get(i).close();
-							this.clients.remove(i);
 							
 						
 	
 					}
-			
 				}	
 			
 			}

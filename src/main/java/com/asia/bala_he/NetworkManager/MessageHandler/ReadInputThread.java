@@ -11,6 +11,7 @@ public class ReadInputThread implements Runnable{
 	private Socket socket;
 	BufferedReader in;
 	private String str;
+	private boolean eow = true;
 	
 	public ReadInputThread(Socket s){
 		this.socket = s;
@@ -25,10 +26,10 @@ public class ReadInputThread implements Runnable{
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
-		while(true)
+		while(eow)
 		{
 			
 			
