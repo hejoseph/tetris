@@ -64,8 +64,15 @@ public class SendMessageToAll implements Runnable {
 			}	
 				
 			for (int i = 0; i < this.clients.size(); i++){
-			
-				if(this.clients.get(i)!=socket && this.clients.get(i)!=null){
+				
+				if(this.clients.get(i).isClosed()){
+					
+					this.clients.remove(i);
+					i--;
+					
+				}
+				
+				else if(this.clients.get(i)!=socket && !this.clients.get(i).isClosed()){
 				
 					
 					if(str.equals("malus")){
@@ -80,14 +87,17 @@ public class SendMessageToAll implements Runnable {
 							
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
-							//e.printStackTrace();
+								
+							//this.clients.remove(i);
+							e.printStackTrace();
+							
 						}
 							
 						
 	
 					}
 				}	
-			
+				
 			}
 						
 		}
