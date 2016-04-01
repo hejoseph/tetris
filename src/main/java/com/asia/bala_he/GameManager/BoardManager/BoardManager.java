@@ -63,24 +63,6 @@ public class BoardManager {
 		this.pm = pm;
 	}
 
-	// Initialisation des bords
-	public int[][] initiateBorders(int[][] board) {
-
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[0].length; j++) {
-
-				board[20][j] = 8;
-
-				if (j == 0 || j == board[0].length - 1) {
-					board[i][j] = 8;
-				}
-
-			}
-
-		}
-
-		return board;
-	}
 
 	public int[][] initBoard(int[][] board) {
 		if (!(board.length > 5 && board[0].length > 8)) {
@@ -223,10 +205,13 @@ public class BoardManager {
 		}
 	}
 	
-	public boolean checkIfRowFilled() {
+	/*Suprression Ligne complet*/
+	
+	public void deleteFilledRows() {
+		
 		int count = 0;
 		
-		for (int i  = 0; i <= this.board.length-4; i++)
+		for (int i  = 0; i < this.board.length-3; i++)
 		{
 			count=0;
 			for (int j = 0; j < this.board[0].length; j++) {
@@ -237,25 +222,17 @@ public class BoardManager {
 				
 			}
 			if(count == 12){
-				System.out.println(count);
-				return true;
+				deleteFilledRowAndMovePieces(i);
 			}
 		
 		}		
-		return false;
 	}
 	
-	public void deleteFilledRow(int row_num) {
-		for (int j = 0; j < board[0].length; j++) 
-		{
-			if(this.board[row_num][j] != 8){
-				this.board[row_num][j] = 0;
-			}
-			
-		}
-		
+	public void deleteFilledRowAndMovePieces(int row_num) {
+
 		for (int i = row_num; i >= 0; i--) {
-			for (int j = 0; j < board[0].length; j++) {
+			for (int j = 3; j < board[0].length-3; j++) {
+					
 				if(this.board[i][j] != 8 && this.board[i][j] != 0  ){
 					this.board[i+1][j] = this.board[i][j];
 					this.board[i][j] = 0;
@@ -264,8 +241,54 @@ public class BoardManager {
 			}
 		}
 		
+	}
+	
+	
+	/*MAnus Ajout Ligne*/
+	
+	public void AddExtraRow(int row) {
+		
+		int i;
+		for (i  = row; i < this.board.length-3; i++)
+		{
+			
+			for (int j = 3; j < this.board[0].length-3; j++) {
+				
+				this.board[i-1][j] = this.board[i][j];
+				this.board[i][j] = 0;
+			}
+			
+		}
+		for (int j = 3; j < this.board[0].length-3; j++){
+			this.board[this.board.length-4][j] = 8;
+		}
+			
 		
 	}
+	
+	
+	public void manusAddRow() {
+		
+		int i =1;
+		int row=0; 
+		while(row < board.length-3 && i==1){
+			
+			
+			for (int j = 3 ; j < board[0].length-3; j++) {
+				if (this.board[i][j] != 0 && this.board[i][j] != 8 ) {
+					AddExtraRow(row);
+					i=0;
+				}
+				
+			}		
+			
+			row++;
+			
+		}
+	
+		
+	}
+	
 	
 	
 

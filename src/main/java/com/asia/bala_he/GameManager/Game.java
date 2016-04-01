@@ -59,10 +59,11 @@ public class Game implements Runnable{
 				this.isEndOfGame();
 				
 			
-				if(bm.checkIfRowFilled()){
-					bm.deleteFilledRow(bm.rowToDelete);
+				bm.deleteFilledRows();
+				//bm.manusAddRow();
+					
 							
-				}
+				
 				
 				bm.setX(0);
 				bm.setCurrent(pm.generateRandomPiece());

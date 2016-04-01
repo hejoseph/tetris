@@ -14,7 +14,9 @@ public class MainIHM {
 
 
 		
-		//WelcomeText text = new WelcomeText();
+		WelcomeText text = new WelcomeText();
+		Scanner enter = new Scanner(System.in);
+		enter.nextLine();
 
 //		String piece_num = chooseRandomnNumber_1to7() + "";
 //	
@@ -22,6 +24,8 @@ public class MainIHM {
 //		displayPiece(p.getData()[0]);
 		
 //		System.out.println();
+		
+		
 		PieceManager pm = new PieceManager(new PieceFactory());
 		BoardManager bm = new BoardManager(new int[21][18], pm.generateRandomPiece(), null,0,3);
 		Game g = new Game(bm,pm);

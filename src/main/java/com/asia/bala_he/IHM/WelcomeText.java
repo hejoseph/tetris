@@ -38,16 +38,18 @@ public class WelcomeText {
 		    }
 		    catch (IOException exception)
 		    {
-		        System.out.println ("Problmen while reading : " + exception.getMessage());
+		        System.out.println ("Problem while reading : " + exception.getMessage());
 		        
 		    } catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		    System.out.println();
+		    System.out.println("			Press Enter To Start The Game...");
 		}
 		catch (FileNotFoundException exception)
 		{
-		    System.out.println ("File not Found");
+		    System.out.println ("3RROR 404: NOT FOUND");
 		}
 	}
 }
