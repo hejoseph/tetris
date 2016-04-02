@@ -15,7 +15,9 @@ public class BoardTest {
 	
 	PieceManager pm = new PieceManager(pf);
 	
-	BoardManager bm = new BoardManager(new int[21][18],this.pf.getPiece(1+""), null,3,3);
+	//Given that we have two board which generates piece randomly one for functions and one to compare
+	BoardManager bm = new BoardManager(new int[21][18],pm.generateRandomPiece(),null,0,3);
+	BoardManager bm2 = new BoardManager(new int[21][18],pm.generateRandomPiece(),null,0,3);
 	
 	int[][] board= new int[21][18];
 	
@@ -25,8 +27,10 @@ public class BoardTest {
 	@Test
 	public void shouldInitiateBordersForTheBoard(){
 		
-		
+		//When we test that the borders of the board are initiated 
 		for(int j=0;j<4;j++){
+			
+			//Then the board must be different to the empty board
 			assertFalse(bm.getBoard()==board);
 		}
 		
@@ -35,12 +39,13 @@ public class BoardTest {
 	
 	@Test
 	public void shouldFillTheBoardWithPiece(){
-		BoardManager bm2 = new BoardManager(new int[21][18],this.pf.getPiece(1+""), null,3,3);
+		
+		//When we fill the board with a piece
 		bm2.fillBoardWithCurrentPiece();
 		
 		boolean equal = true;
 		
-		
+		//Then the board with a piece must be different to the board without a piece
 		for(int i=0 ; i<4;i++){
 			
 			for(int j=0 ; j<4; j++)
@@ -58,6 +63,7 @@ public class BoardTest {
 			}
 		}
 		
+		//And equal must be false
 		assertFalse(equal);
 
 	}
@@ -66,15 +72,34 @@ public class BoardTest {
 	@Test
 	public void shouldRotatePiece(){
 		
+		//Given that we choose the piece 1 
 		Piece p = this.pf.getPiece(1+"");
 		
+		//When we rotate the piece
 		bm.rotate_right();
 		
+		//We set the orientation manually
 		p.setOrientation((p.getOrientation()+1)%4);
 	
+		//Then I should have the same result while setting manually the orientation and rotating using the function
 		assertTrue(bm.getCurrent().getOrientation() == p.getOrientation());
 		
 		
+		
+	}
+	
+	
+	@Test
+	public void shouldGoDownInTheBoard(){
+		
+		//When we move the piece on the down side
+		bm.move_down();
+		
+		//We set the position manually
+		bm2.setX(bm2.getX()+1);
+	
+		//Then I should have the same result while setting manually the position and moving using the function
+		assertTrue(bm.getX()==bm2.getX() && bm.getY()==bm2.getY());
 		
 	}
 	
@@ -82,10 +107,13 @@ public class BoardTest {
 	public void shouldMovePieceRightInTheBoard(){
 		
 		
-		BoardManager bm2 = new BoardManager(new int[21][18],this.pf.getPiece(1+""), null,3,3);
+		//When we move the piece on the right side
 		bm.move_right();
+		
+		//We set the position manually
 		bm2.setY(bm2.getY()+1);
 	
+		//Then I should have the same result while setting manually the position and moving using the function
 		assertTrue(bm.getX()==bm2.getX() && bm.getY()==bm2.getY());
 		
 		
@@ -96,45 +124,92 @@ public class BoardTest {
 	public void shouldMovePieceLeftInTheBoard(){
 		
 		
-		BoardManager bm2 = new BoardManager(new int[21][18],this.pf.getPiece(1+""), null,3,3);
+		
+		//When we move the piece on the left side
 		bm.move_left();
+		
+		//We set the position manually
 		bm2.setY(bm2.getY()-1);
 	
+		//Then I should have the same result while setting manually the position and moving using the function
 		assertTrue(bm.getX()==bm2.getX() && bm.getY()==bm2.getY());
 		
 		
 		
 	}
 	
+	
+	
+	@Test
+	public void shoulNotGodownInTheBoard(){
+		
+		int count;
+		int x=0;
+		
+		//Given that we fill the board with a piece
+		bm.fillBoardWithCurrentPiece();
+		
+		//And we should find the position of the first cell of the piece on the matrix 4*4 when going from the down to up
+		for(int i= bm.getX()+3; i>=bm.getX(); i--){
+			count =0;
+			for(int j= bm.getY(); j<bm.getY()+4; j++)
+			{
+				if(bm.getBoard()[i][j] != 0 ){
+					count++;
+				}
+			}
+		
+			if(count>0){
+				x=i-bm.getX();
+				break;
+			}
+		}
+		
+		//When moving the piece down
+		while(bm.can_move_down()){
+			bm.move_down();
+			
+		}
+		
+		//Then the piece should not overlaps with the down border or an other piece and should stop moving
+		assertTrue(bm.getBoard()[bm.getX()+x+1][bm.getY()]!=0 );
+		
+	}
+	
+	
+	
 	@Test
 	public void shouldNotMovePieceRightInTheBoard(){
 		
-		BoardManager bm2 = new BoardManager(new int[21][18],pm.generateRandomPiece(),null,0,3);
-		int y = 0;
-		int k=1;
-		bm2.fillBoardWithCurrentPiece();
-		for(int i=3 ; i>=0;i--){
-			
-			for(int j= bm2.getX(); j<bm2.getX()+4; j++)
+		int count;
+		int y=0;
+		
+		//Given that we fill the board with a piece
+		bm.fillBoardWithCurrentPiece();
+		
+		//And we should find the position of the first cell of the piece on the matrix 4*4 when going from the right to left
+		for(int j=bm.getY()+3; j>=bm.getY(); j--){
+			count =0;
+			for(int i= bm.getX(); i<bm.getX()+4; i++)
 			{
-				if(bm2.getBoard()[j][bm2.getY()+i]!=0 && k==1){
-					
-						
-					y= bm2.getBoard()[0].length-4-i;
-					k=0;		
+				if(bm.getBoard()[i][j] != 0){
+					count++;
 				}
 			}
-	
+		
+			if(count>0){
+				y=j-bm.getY();
+				break;
+			}
 		}
 		
-		
-		while(bm2.can_move_right()){
-			bm2.move_right();
+		//When moving the piece right
+		while(bm.can_move_right()){
+			bm.move_right();
 		}
-	
 		
-		
-		assertTrue(bm2.getX()==0 && bm2.getY()==y);
+		//Then the piece should not overlaps with the right border or an other piece and should stop moving
+		assertTrue(bm.getBoard()[bm.getX()][bm.getY()+y+1]!=0 );
 		
 		
 	}
@@ -142,82 +217,69 @@ public class BoardTest {
 	@Test
 	public void shouldNotMovePieceLeftInTheBoard(){
 		
-		BoardManager bm2 = new BoardManager(new int[21][18],pm.generateRandomPiece(),null,0,3);
 		
-		int y = 0;
-		int k=1;
-		bm2.fillBoardWithCurrentPiece();
-		for(int i=0 ; i<4; i++){
-			
-			for(int j= bm2.getX(); j<bm2.getX()+4; j++)
+		int count;
+		int y=0;
+		
+		//Given that we fill the board with a piece
+		bm.fillBoardWithCurrentPiece();
+		
+		//And we should find the position of the first cell of the piece on the matrix 4*4 when going from the left to right
+		for(int j=bm.getY(); j<bm.getY()+4; j++){
+			count =0;
+			for(int i= bm.getX(); i<bm.getX()+4; i++)
 			{
-				if(bm2.getBoard()[j][bm2.getY()+i]!=0 && k==1){
-					
-						
-					y= 1+i;
-					k=0;		
-			
+				if(bm.getBoard()[i][j] != 0){
+					count++;
 				}
 			}
-	
+		
+			if(count>0){
+				y=j-bm.getY();
+				break;
+			}
 		}
 		
-		
-		while(bm2.can_move_left()){
-			bm2.move_left();
+		//When moving the piece left
+		while(bm.can_move_left()){
+			bm.move_left();
 		}
 		
-		assertTrue(bm2.getX()==0 && bm2.getY()==y);
+		//Then the piece should not overlaps with the left border or an other piece and should stop moving
+		assertTrue(bm.getBoard()[bm.getX()][bm.getY()+y-1]!=0);
 		
 		
 		
 	}
 	
 	@Test
-	public void shouldGoDownInTheBoard(){
+	public void shouldRemoveCompletedLinesInTheBoard(){
 		
-		BoardManager bm2 = new BoardManager(new int[21][18],this.pf.getPiece(1+""), null,3,3);
-		bm.move_down();
-		bm2.setX(bm2.getX()+1);
-	
-		assertTrue(bm.getX()==bm2.getX() && bm.getY()==bm2.getY());
+		//Given that we filled last line of the board 
+		for(int j=3; j<bm.getBoard()[0].length-3;j++){
+			
+			bm.getBoard()[bm.getBoard().length-4][j] = 1;
+		}
+		
+		//Then we check that the last is filled comparing to an empty board
+		for(int j=3; j<bm.getBoard()[0].length-3;j++){
+			
+			assertFalse(bm.getBoard()[bm.getBoard().length-4][j] == bm2.getBoard()[bm2.getBoard().length-4][j]);
+		}
+		
+		//When we delete the completed line
+		bm.deleteFilledRows();
+		
+		//Then the completed line must be removed
+		for(int j=3; j<bm.getBoard()[0].length-3;j++){
+			
+			assertTrue(bm.getBoard()[bm.getBoard().length-4][j] == bm2.getBoard()[bm2.getBoard().length-4][j]);
+		}
 		
 	}
 	
 	
-	@Test
-	public void shoulNotGodownInTheBoard(){
-		BoardManager bm2 = new BoardManager(new int[21][18],pm.generateRandomPiece(),null,0,3);
-		
-		int x = 0;
-		int k=1;
-		bm2.fillBoardWithCurrentPiece();
-		
-		for(int i=3 ; i>=0; i--){
-			
-			for(int j= bm2.getY(); j<bm2.getY()+4; j++)
-			{
-				if(bm2.getBoard()[bm2.getX()+i][j]!=0 && k==1){
-				
-				
-					x= bm2.getBoard().length-4-i;
-					k=0;	
-
-			
-				}
-			}
-		
-		}
-		
-		
-		while(bm2.can_move_down()){
-			bm2.move_down();
-			
-		}
-		
-		
-		assertTrue(bm2.getX()==x && bm2.getY()==3);
-		
-	}
+	
+	
 
 }
