@@ -32,10 +32,7 @@ Une fois que la partie est lancée, une pièce apparaitra. Pou déplacer la piè
 		
 La conception des pièces 
 
-Nous avons décidé d’inclure 7 pièces à notre tetris :
-[1]		    [2][2]		[3][3][3][3]	     [4]	         [5]	              [6][6][6]		[7][7][7]
-[1][1]		[2][2]				               [4][4]        [5][5][5]                [6]	  [7]
-   [1]						                     [4]			
+Nous avons décidé d’inclure 7 pièces à notre tetris.		
 
 Chaque pièce est contenu dans une matrice 4*4.
 Toutes les positions de rotation de chacune des pièces sont stockées dans un tableau de deux dimension. 
