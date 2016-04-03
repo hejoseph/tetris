@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,6 @@ public class SendMessageToAll implements Runnable {
 	}
 
 	public void run() {
-		System.out.println("new thread send message");
 		try {
 
 			in = new BufferedReader(new InputStreamReader(
@@ -46,8 +44,6 @@ public class SendMessageToAll implements Runnable {
 
 		while (isRunning) {
 			try {
-				System.out
-						.println("thread with " + clients.size() + " clients");
 				Thread.sleep(0);
 			} catch (InterruptedException e2) {
 				// TODO Auto-generated catch block
@@ -55,9 +51,7 @@ public class SendMessageToAll implements Runnable {
 			}
 
 			try {
-				System.out.println("trying to read");
 				str = in.readLine();
-				System.out.println("finish reading");
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -75,12 +69,10 @@ public class SendMessageToAll implements Runnable {
 
 			m = DataServant.parseIntoHashMap(str);
 			if(m.size()>0){
-				System.out.println("hello");
 				if (m.containsKey("malus")) {
 					sendToAll();
 				}
 				if(m.containsKey("name") && m.containsKey("id")){
-					System.out.println("adding");
 					this.player.put(m.get("id"), m.get("name"));
 				}
 				if(m.containsKey("requestId")){
@@ -101,7 +93,6 @@ public class SendMessageToAll implements Runnable {
 			}
 
 		}
-		System.out.println("thread closed ?");
 	}
 
 	private void killSocket() {
@@ -119,7 +110,7 @@ public class SendMessageToAll implements Runnable {
 		}
 	}
 
-	//Envoie des manus � tous les clients
+	//Envoie des manus ï¿½ tous les clients
 	private void notifyAllGameStarting() {
 		for (int i = 0; i < this.clients.size(); i++) {
 			if (this.clients.get(i).isClosed()) {
@@ -145,7 +136,7 @@ public class SendMessageToAll implements Runnable {
 		}
 	}
 
-	//Lorsqu'un joueur quitte le jeu 鏰 ferme le socket
+	//Lorsqu'un joueur quitte le jeu é�° ferme le socket
 	private void closeAllSocket() {
 		for(Socket s : this.clients){
 			try {
@@ -160,8 +151,6 @@ public class SendMessageToAll implements Runnable {
 	private void sendListPlayer(String param) {
 		try {
 			PrintWriter out;
-			System.out.println("List");
-			System.out.println(this.player.toString());
 			out = new PrintWriter(new BufferedWriter(
 					new OutputStreamWriter(this.clients.get(this.clientId)
 							.getOutputStream())), true);
@@ -172,7 +161,6 @@ public class SendMessageToAll implements Runnable {
 						nb++;
 					}
 				}
-				System.out.println(nb+" Coo");
 				out.println("listPlayers="+nb);
 			} else {
 				out.println("listPlayers="+this.player);
@@ -189,7 +177,6 @@ public class SendMessageToAll implements Runnable {
 	private void sendLastClientId() {
 		try {
 			PrintWriter out;
-			System.out.println("last id ="+this.clientId);
 			out = new PrintWriter(new BufferedWriter(
 					new OutputStreamWriter(this.clients.get(this.clientId)
 							.getOutputStream())), true);

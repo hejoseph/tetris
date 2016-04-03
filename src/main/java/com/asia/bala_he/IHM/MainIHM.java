@@ -1,7 +1,6 @@
 package com.asia.bala_he.IHM;
 
-import java.net.BindException;
-import java.net.ConnectException;
+
 import java.util.Map;
 import java.util.Scanner;
 
@@ -58,10 +57,7 @@ public class MainIHM {
 
 
 
-	// public static void clientConnection(Client c, String ipAddr, int port){
-	// c.connect(ipAddr,port);
-	// c.setClientId(clientId);
-	// }
+	
 
 	//Fonction qui cr�e une nouvelle partie
 	public static void createGame() {
@@ -71,11 +67,7 @@ public class MainIHM {
 			s = Server.getInstance();//Cration d'un serveur
 		}
 		c.connect("127.0.0.1", 8078);
-		String d="";
-//		while(d!="quit"){
-//			d = enter.next();
-//			c.sendData(d);
-//		}
+
 		c.setClientId(s.getClientId() + "");
 		c.sendData("id=" + c.getClientId() + "&name=" + c.getName());
 

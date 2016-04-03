@@ -1,6 +1,6 @@
 package com.asia.bala_he.IHM;
 
-import java.io.IOException;
+
 import com.asia.bala_he.GameManager.*;
 
 //Classe permettant l'affichage du jeu sur la console

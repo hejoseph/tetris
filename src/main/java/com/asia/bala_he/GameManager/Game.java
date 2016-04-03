@@ -2,10 +2,8 @@ package com.asia.bala_he.GameManager;
 
 import com.asia.bala_he.GameManager.BoardManager.BoardManager;
 import com.asia.bala_he.GameManager.PieceManager.PieceManager;
-import com.asia.bala_he.IHM.RawConsoleInput;
 import com.asia.bala_he.NetworkManager.ConnectionHandler.Client;
 
-import java.io.IOException;
 
 //role:handle a tetris game,
 public class Game implements Runnable{
@@ -89,14 +87,11 @@ public class Game implements Runnable{
 				int malusId = bm.deleteFilledRows();
 				int lastScore=this.score;
 				this.score+=malusId;
-				System.out.println("id : "+malusId);
 				if(lastScore!=this.score){
-					if(this.score%2==0){
-						System.out.println("Sending");
+					if(this.score%10==0){
 						this.player.sendData("malus=2");
-					} else if(this.score%3==0){
-						this.player.sendData("malus=3");
-					} else if(this.score%1==0){
+					} 
+					else if(this.score%5==0){
 						this.player.sendData("malus=1");
 					}
 				}
@@ -116,10 +111,7 @@ public class Game implements Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// if(bm.can_move_right()){
-			// 	System.out.println("right");
-			// 	bm.move_right();
-			// }
+			
 		}
 	}
 	
@@ -132,55 +124,10 @@ public class Game implements Runnable{
 			}
 		} else if(mode.equals("2")){ 
 			this.speed=(int)this.speed/2;
-		} else if(mode.equals("3")){
-			this.bm.malusAddRow();
 		}
 	}
 
-	// Affichage de la grille = function noob
-//	public void displayBoard(int[][] board) {
-//		for (int i = 0; i < board.length; i++) {
-//			for (int j = 0; j < board[0].length; j++) {
-//
-//				/* Afficher la pi¨¨ce */
-//
-//				if (board[i][j] != 0 && board[i][j] != 8) {
-//					System.out.print("[" + board[i][j] + "]");
-//				}
-//
-//				/* Bord de gauche */
-//				else if (j == 0) {
-//					System.out.print("[8][8]");
-//				}
-//
-//				/* Bord de droite */
-//				else if (j == board[0].length - 1) {
-//					System.out.print("[8][8]");
-//				}
-//
-//				/* Bord du bas */
-//				else if (i == board.length - 1) {
-//					System.out.print("[" + board[i][j] + "]");
-//				}
-//
-//				/* Espacement de la grille */
-//				else {
-//					System.out.print("   ");
-//				}
-//				// System.out.print("["+board[i][j]+"]");
-//
-//			}
-//			System.out.println();
-//
-//		}
-//		// Afichage de la deuxieme bord en bas
-//		for (int i = 0; i < board[0].length + 2; i++) {
-//			System.out.print("[8]");
-//		}
-//		
-//		System.out.println();
-//
-//	}
+	
 
 	private String receivedMalus() {
 		String malusReceived = this.player.getRit().getMapValue("malus");//manus mesage provenant du serveur
@@ -213,18 +160,15 @@ public class Game implements Runnable{
 		for(int l=0;l<board.length-2;l++){
 			for(int c=2;c<board[0].length-2;c++){
 				if(board[l][c]==0){
-					// System.out.print("   ");
+					
 					d+="   ";
 				}else{
-					// System.out.print("[X]");
+					
 					d+="[X]";
 				}
-				// }else if(board[l][c]==0){
-					// System.out.print("   ");
-				// }else{
-				// }
+				
 			}
-			// System.out.println();
+		
 			d+="\n";
 		}
 		System.out.println(d);

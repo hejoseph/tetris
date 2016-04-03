@@ -1,8 +1,6 @@
 package com.asia.bala_he.GameManager.BoardManager;
 
-import java.awt.DisplayMode;
 
-import com.asia.bala_he.GameManager.Game;
 import com.asia.bala_he.GameManager.PieceManager.Piece;
 import com.asia.bala_he.GameManager.PieceManager.PieceManager;
 
@@ -234,9 +232,7 @@ public class BoardManager {
 			}
 			//Si une ligne est remplie
 			if(count == this.board[0].length-6){
-				//malusAddRow();
 				deleteFilledRowAndMovePieces(i);//Supprime la ligne et décale les pièces vers le bas
-				//System.out.println("shjgdsjhgds");
 				nbRowDeleted++;
 			}
 		
@@ -335,13 +331,6 @@ public class BoardManager {
 		this.board = board;
 	}
 
-	// public int getScore() {
-	// return score;
-	// }
-	//
-	// public void setScore(int score) {
-	// this.score = score;
-	// }
 
 	public Piece getCurrent() {
 		return current;

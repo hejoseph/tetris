@@ -40,11 +40,7 @@ public class KeyboardManager extends Thread{
                     // System.out.println(read);
                     this.g.displayBoard();//affiche le résultat des déplacements sur la console
                 }
-                // try{
-                //     Thread.sleep(250);
-                // }catch(Exception e){
-                //     e.printStackTrace();
-                // }
+             
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

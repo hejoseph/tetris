@@ -45,9 +45,8 @@ public class ReadInputThread implements Runnable {
 
 			if (str != null) {
 				this.data = str;
-				System.out.println(this.data);
 				this.m = DataServant.parseIntoHashMap(str);
-//				System.out.println(m.get("malus"));
+
 			}
 
 
