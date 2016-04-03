@@ -3,6 +3,8 @@ package com.asia.bala_he.GameManager;
 import com.asia.bala_he.GameManager.BoardManager.BoardManager;
 import com.asia.bala_he.GameManager.PieceManager.PieceManager;
 import com.asia.bala_he.IHM.RawConsoleInput;
+import com.asia.bala_he.NetworkManager.ConnectionHandler.Client;
+
 import java.io.IOException;
 
 //role:handle a tetris game,
@@ -11,12 +13,22 @@ public class Game implements Runnable{
 	private PieceManager pm;
 	private int score;
 	private boolean endOfGame;
+	private Client player;
 
-	public Game(BoardManager bm, PieceManager pm) {
+	public Game(BoardManager bm, PieceManager pm, Client player) {
 		this.bm = bm;
 		this.pm = pm;
 		this.score = 0;
 		this.endOfGame = false;
+		this.player = player;
+	}
+
+	public Client getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Client player) {
+		this.player = player;
 	}
 
 	public void run() {
