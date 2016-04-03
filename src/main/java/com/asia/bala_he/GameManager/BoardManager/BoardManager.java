@@ -232,14 +232,22 @@ public class BoardManager {
 	
 	public void deleteFilledRowAndMovePieces(int row_num) {
 
-		for (int i = row_num; i >= 0; i--) {
+		int k=3;
+		
+		while(k<board[0].length-3){
+			
+			this.board[row_num][k] = 0;
+			k++;
+			
+		}
+		
+		for (int i = row_num-1; i >= 0; i--) {
 			for (int j = 3; j < board[0].length-3; j++) {
 					
-				if(this.board[i][j] != 8 && this.board[i][j] != 0  ){
-					this.board[i+1][j] = this.board[i][j];
-					this.board[i][j] = 0;
-				}
 				
+				
+				this.board[i+1][j] = this.board[i][j];
+							
 			}
 		}
 		
