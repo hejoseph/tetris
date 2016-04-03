@@ -52,6 +52,14 @@ public class ReadInputThread implements Runnable {
 			// socket.getPort());
 
 		}
+		
+		try {
+			in.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public String getData() {

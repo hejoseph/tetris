@@ -277,7 +277,7 @@ public class BoardManager {
 			
 			
 			for (int j = 3 ; j < board[0].length-3; j++) {
-				if (this.board[i][j] != 0 && this.board[i][j] != 8 ) {
+				if (this.board[row][j] != 0 && this.board[row][j] != 8 ) {
 					AddExtraRow(row);
 					i=0;
 				}

@@ -24,6 +24,19 @@ public class ClientConnexionThread implements Runnable {
 		this.clients = clients;
 		this.inGame = inGame;
 	}
+	
+	public boolean isInGame() {
+		return inGame;
+	}
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
+	}
+
+	public void kill(){
+		inGame = true;
+		serverProcessing.kill();
+	}
 
 	public void run() {
 
@@ -35,9 +48,9 @@ public class ClientConnexionThread implements Runnable {
 				this.clientId++;
 				System.out.println("Client ID = "+this.clientId);
 				this.clients.add(socket);
-				if(serverProcessing!=null){
-					serverProcessing.kill();
-				}
+//				if(serverProcessing!=null){
+//					serverProcessing.kill();
+//				}
 				serverProcessing = new SendMessageToAll(socket, this.clients, this.player, this.clientId);
 				new Thread(serverProcessing).start();
 				// t2.start();

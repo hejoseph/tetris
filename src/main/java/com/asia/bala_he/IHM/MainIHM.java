@@ -10,6 +10,7 @@ import com.asia.bala_he.GameManager.PieceManager.PieceManager;
 import com.asia.bala_he.NetworkManager.ConnectionHandler.Client;
 import com.asia.bala_he.NetworkManager.ConnectionHandler.Server;
 import com.asia.bala_he.NetworkManager.MessageHandler.DataServant;
+import com.asia.bala_he.ScoreManager.FileManager;
 
 import java.util.*;
 import java.util.prefs.BackingStoreException;
@@ -136,6 +137,11 @@ public class MainIHM {
 		int a = 0;
 		s = new Server();
 		c.connect("127.0.0.1", 8078);
+		String d="";
+//		while(d!="quit"){
+//			d = enter.next();
+//			c.sendData(d);
+//		}
 		c.setClientId(s.getClientId() + "");
 		c.sendData("id=" + c.getClientId() + "&name=" + c.getName());
 		t = new Thread(new Runnable() {
@@ -159,11 +165,15 @@ public class MainIHM {
 			case 1:
 				gameStarted = true;
 				c.sendData("startGame=true");
-				startGame(c);
+				startGame();
+				
 				gameStarted=false;
+				s.acceptClient();
 				break;
 			case 2:
 				backToMenu = true;
+				c.disconnect();
+				s.disconnect();
 				break;
 			}
 		}
@@ -174,7 +184,16 @@ public class MainIHM {
 		System.out.println(m);
 	}
 
-	public static void startGame(Client c) {
+	public static void startGame() {
+//		String a="";
+//		while(a!="quit"){
+//			a = enter.next();
+//			c.sendData(a);
+//		}
+		
+		
+		
+//		s.refuseClient();
 		PieceManager pm = new PieceManager(new PieceFactory());
 		BoardManager bm = new BoardManager(new int[21][18],
 				pm.generateRandomPiece(), null, 0, 3);
@@ -195,7 +214,19 @@ public class MainIHM {
 				e.printStackTrace();
 			}
 		}
-		
+		c.sendData("listPlayers=nb");
+		while(c.getRit().getMapValue("listPlayers").equals("")){
+			System.out.println("waiting nb player +"+c.getRit().getMapValue("listPlayers"));
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		int nb = Integer.parseInt(c.getRit().getMapValue("listPlayers"));
+		System.out.println(nb);
+		FileManager.write(nb, c.getName(), g.getScore());
 	}
 
 	public static void findServer() {
@@ -220,11 +251,6 @@ public class MainIHM {
 		System.out.println(c.getClientId());
 		c.sendData("id=" + c.getClientId() + "&name=" + c.getName());
 		System.out.println("Connected");
-		int i = 0;
-		while(i<10){
-			String s = c.getRit().getStr();
-			i++;
-		}
 		
 		Thread t = new Thread(new Runnable() {
 			public void run() {
@@ -258,6 +284,11 @@ public class MainIHM {
 //				c.disconnect();
 //				break;
 //			}
+//			String b ="";
+//			while(b!="quit"){
+//				b=enter.next();
+//				c.sendData(b);
+//			}
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -266,13 +297,13 @@ public class MainIHM {
 			}
 		}
 		if(gameStarted){
-			startGame(c);
+			startGame();
 			gameStarted=false;
 		}
 	}
 
 	public static void viewScores() {
-
+		FileManager.read();
 	}
 
 	public static void changeName() {

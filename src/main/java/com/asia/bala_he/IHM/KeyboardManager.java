@@ -18,7 +18,8 @@ public class KeyboardManager extends Thread{
                 read = RawConsoleInput.read(false);
                 if(read!=-2){
                     if(read==27){
-                        System.exit(0);
+//                        System.exit(0);
+                    	g.setEndOfGame(true);
                     }
                     if(read==114){
                         g.getBoardManager().rotate_right();
@@ -31,6 +32,9 @@ public class KeyboardManager extends Thread{
                     } 
                     if(read==100){
                         g.getBoardManager().move_right();
+                    }
+                    if(read==122){
+                    	g.getPlayer().sendData("malus=2");
                     }
                     // System.out.println(read);
                     this.g.displayBoard();
