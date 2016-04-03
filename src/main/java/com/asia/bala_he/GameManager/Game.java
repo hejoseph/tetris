@@ -84,7 +84,6 @@ public class Game implements Runnable{
 				bm.move_down();
 			}else{
 				this.isEndOfGame();
-				this.bm.malusAddRow();
 				int malusId = bm.deleteFilledRows();
 				this.score+=malusId;
 				System.out.println("id : "+malusId);
@@ -101,10 +100,7 @@ public class Game implements Runnable{
 				bm.setY((int)(bm.getBoard()[0].length/2)-2);
 				bm.setCurrent(pm.generateRandomPiece());
 			}
-			// bm.move_right();
-			// displayBoard();
-			
-//			simple_display_board(bm.getBoard());
+
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
