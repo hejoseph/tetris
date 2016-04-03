@@ -101,6 +101,7 @@ public class SendMessageToAll implements Runnable {
 		System.out.println("thread closed ?");
 	}
 
+	//Envoie des manus à tous les clients
 	private void notifyAllGameStarting() {
 		for (int i = 0; i < this.clients.size(); i++) {
 			if (this.clients.get(i).isClosed()) {
@@ -126,6 +127,7 @@ public class SendMessageToAll implements Runnable {
 		}
 	}
 
+	//Lorsqu'un joueur quitte le jeu ça ferme le socket
 	private void closeAllSocket() {
 		for(Socket s : this.clients){
 			try {

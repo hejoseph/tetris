@@ -13,7 +13,10 @@ import com.asia.bala_he.NetworkManager.MessageHandler.ReadInputThread;
  * Le processus client se connecte au site fourni dans la commande d'appel en
  * premier argument et utilise le port distant 8080.
  */
+
+//Classe pour la partie Client(Réseau)
 public class Client {
+	//Inititalisation
 	static final int port = 8078;
 	private String clientId="";
 	private String name;
@@ -31,8 +34,8 @@ public class Client {
 	
 	public static void main(String[] args) {
 		
-		Client c = new Client("player");
-		c.connect("127.0.0.1", 8078);
+		Client c = new Client("player");//Nouveau client
+		c.connect("127.0.0.1", 8078);	//Le client se connecte à cette addresse et port
 //		c.sendData("id=50&name=lol");
 		while(true){
 			Scanner sc = new Scanner(System.in);
@@ -62,6 +65,7 @@ public class Client {
 		this.data = data;
 	}
 
+	//Si le client veut se connecter à un autre seveur que le default
 	public void connect(String ipAddr, int port){
 		try {
 			socket = new Socket(ipAddr, port);
@@ -78,7 +82,7 @@ public class Client {
 			com.start();
 			
 			out = new PrintWriter(new BufferedWriter(
-					new OutputStreamWriter(socket.getOutputStream())), true);
+					new OutputStreamWriter(socket.getOutputStream())), true);//Pour envoyer des messages au serveur
 			
 		} catch (IOException e) {
 			e.printStackTrace();

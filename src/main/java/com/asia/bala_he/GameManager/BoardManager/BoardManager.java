@@ -6,7 +6,11 @@ import com.asia.bala_he.GameManager.Game;
 import com.asia.bala_he.GameManager.PieceManager.Piece;
 import com.asia.bala_he.GameManager.PieceManager.PieceManager;
 
-//role:handle piece in board, movement piece, 
+
+/*Classe utilisée pour :
+  		- gestion du Board
+  		- gestion des mouvements de la pièce
+ */
 public class BoardManager {
 	private PieceManager pm;
 
@@ -20,6 +24,7 @@ public class BoardManager {
 	
 	public int rowToDelete;
 
+	//Prend en paramètre:un tableau 2D pour le board, une nouvelle pièce, les positions initiales de cette pièce en x et y 
 	public BoardManager(int[][] board, Piece current, Piece next, int x, int y) {
 		// this.score = score;
 		this.current = current;
@@ -27,11 +32,8 @@ public class BoardManager {
 		this.x = x;
 		this.y = y;
 
-		// for (int i = 0; i < board[20].length; i++) {
-		// board[20][i] = 1;
-		// }
-
-		this.board = initBoard(board);
+		
+		this.board = initBoard(board);//Initialise le board avec les bordures
 
 	}
 	
@@ -63,7 +65,7 @@ public class BoardManager {
 		this.pm = pm;
 	}
 
-
+	//Fonction permettant d'initialiser les bordures des boards à 8
 	public int[][] initBoard(int[][] board) {
 		if (!(board.length > 5 && board[0].length > 8)) {
 			return null;
@@ -84,6 +86,7 @@ public class BoardManager {
 		return board;
 	}
 
+	//Fonction permettant de remplir le board avec la pièce
 	public void fillBoardWithCurrentPiece() {
 		int a = 0;
 		// System.out.println("x:"+this.x+" y:"+this.y);
@@ -97,6 +100,7 @@ public class BoardManager {
 		}
 	}
 
+	//Fonction permettant d'enlever la pièce du board
 	public void eraseBoardWithCurrentPiece() {
 		int a = 0;
 		for (int i = this.x; i < this.x + 4; i++) {
@@ -109,7 +113,7 @@ public class BoardManager {
 		}
 	}
 
-	// return true if current piece can move down
+	// Fonction permettant de vérifier si la pièce peut se déplace en bas
 	public boolean can_move_down() {
 		// this.eraseBoardWithCurrentPiece();
 		if (possible_move(this.x + 1, this.y, this.current.getPiece())) {
@@ -120,17 +124,17 @@ public class BoardManager {
 		return false;
 	}
 
-	// move the current piece down of the board
+	// Fonction permettant de faire déplacer la pièce en bas
 	public void move_down() {
 		if (this.can_move_down()) {
-			this.eraseBoardWithCurrentPiece();
+			this.eraseBoardWithCurrentPiece();//On efface la pièce
 			this.x = this.x + 1;
-			this.fillBoardWithCurrentPiece();
+			this.fillBoardWithCurrentPiece();//On réaffiche la pièce avec sa nouvelle position
 		}
 			
 	}
 
-	// check if current piece is overlapping another piece on the board
+	// Fonction qui prend en paramètre la pièce et sa nouvelle position à tester et permet de tester le déplacement
 	public boolean possible_move(int x, int y, int[] pieceToTest) {
 		this.eraseBoardWithCurrentPiece();
 		int a = 0;
@@ -147,19 +151,20 @@ public class BoardManager {
 		return true;
 	}
 
-	// can rotate the current piece to the right?
-	public boolean can_rotate_right() {
+	// Fonction permettant de vérifier si la pièce peut tourner
+	public boolean can_rotate() {
 		int o = this.current.getOrientation();
 		o++;
-		o = o % 4;
+		o = o % 4; //4 position différentes
 		if (possible_move(this.x, this.y, this.current.getPieceAtOrientation(o))) {
 			return true;
 		}
 		return false;
 	}
 
-	public void rotate_right() {
-		if (can_rotate_right()) {
+	// Fonction permettant de tourner la pièce
+	public void rotate() {
+		if (can_rotate()) {
 			this.eraseBoardWithCurrentPiece();
 			int o = this.current.getOrientation() + 1;
 			o = o % 4;
@@ -168,6 +173,7 @@ public class BoardManager {
 		}
 	}
 
+	// Fonction permettant de vérifier si la pièce peut se déplacer à gauche
 	public boolean can_move_left() {
 		if (this.y > 0) {
 			if (possible_move(this.x, this.y - 1, this.current.getPiece())) {
@@ -176,7 +182,8 @@ public class BoardManager {
 		}
 		return false;
 	}
-
+	
+	// Fonction permettant de déplacer la pièce à gauche
 	public void move_left() {
 		if (can_move_left()) {
 			this.eraseBoardWithCurrentPiece();
@@ -185,6 +192,7 @@ public class BoardManager {
 		}
 	}
 
+	// Fonction permettant de vérifier si la pièce peut se déplacer à doite
 	public boolean can_move_right() {
 		
 		System.out.println("taille :" +this.board.length+", y="+this.y);
@@ -197,6 +205,7 @@ public class BoardManager {
 		return false;
 	}
 
+	// Fonction permettant de déplacer la pièce à droite
 	public void move_right() {
 		if (can_move_right()) {
 			this.eraseBoardWithCurrentPiece();
@@ -205,12 +214,14 @@ public class BoardManager {
 		}
 	}
 	
-	/*Suprression Ligne complet*/
 	
+	//Fonction permettant de supprimer une ligne remplie
 	public int deleteFilledRows() {
 		
 		int count = 0;
 		int nbRowDeleted = 0;
+		
+		//On cherche si on a des lignes remplies
 		for (int i  = 0; i < this.board.length-3; i++)
 		{
 			count=0;
@@ -221,8 +232,11 @@ public class BoardManager {
 				}
 				
 			}
+			//Si une ligne est remplie
 			if(count == this.board[0].length-6){
-				deleteFilledRowAndMovePieces(i);
+				//manusAddRow();
+				deleteFilledRowAndMovePieces(i);//Supprime la ligne et décale les pièces vers le bas
+				//System.out.println("shjgdsjhgds");
 				nbRowDeleted++;
 			}
 		
@@ -230,10 +244,12 @@ public class BoardManager {
 		return nbRowDeleted;
 	}
 	
+	//Fonction permettant de supprimer une ligne et décaler les pièces vers le bas
 	public void deleteFilledRowAndMovePieces(int row_num) {
 
 		int k=3;
 		
+		//Suppresion de la ligne
 		while(k<board[0].length-3){
 			
 			this.board[row_num][k] = 0;
@@ -241,11 +257,10 @@ public class BoardManager {
 			
 		}
 		
+		//On décale le reste vers le bas
 		for (int i = row_num-1; i >= 0; i--) {
 			for (int j = 3; j < board[0].length-3; j++) {
 					
-				
-				
 				this.board[i+1][j] = this.board[i][j];
 							
 			}
@@ -254,38 +269,17 @@ public class BoardManager {
 	}
 	
 	
-	/*MAnus Ajout Ligne*/
-	
-	public void AddExtraRow(int row) {
+
+	//Manus permettant d'ajouter une ligne
+	public void manusAddRow() {
 		
-		int i;
-		for (i  = row; i < this.board.length-3; i++)
-		{
-			
-			for (int j = 3; j < this.board[0].length-3; j++) {
-				
-				this.board[i-1][j] = this.board[i][j];
-				this.board[i][j] = 0;
-			}
-			
-		}
-		for (int j = 3; j < this.board[0].length-3; j++){
-			this.board[this.board.length-4][j] = 8;
-		}
-			
-		
-	}
-	
-	
-	public void malusAddRow() {
-		
-		int i =1;
+		int i=1;
 		int row=0; 
 		while(row < board.length-3 && i==1){
 			
 			
 			for (int j = 3 ; j < board[0].length-3; j++) {
-				if (this.board[i][j] != 0 && this.board[i][j] != 8 ) {
+				if (this.board[row][j] != 0 ) {
 					AddExtraRow(row);
 					i=0;
 				}
@@ -296,6 +290,32 @@ public class BoardManager {
 			
 		}
 	
+		
+	}
+	
+	//Fonction permettant d'ajouter une ligne et décaler le reste vers le haut
+	public void AddExtraRow(int row) {
+		System.out.println("RowNumber");
+		System.out.println(row);
+		for (int i  = row; i < this.board.length-4; i++)
+		{
+			
+			for (int j = 3; j < this.board[0].length-3; j++) {
+					if(this.board[i][j] !=0  ){
+						this.board[i-1][j] = this.board[i][j];//Décale les pièces vers le haut
+					}
+			
+				
+			}
+			
+			
+		}
+		for (int j = 3; j < this.board[0].length-3; j++){
+			
+			this.board[this.board.length-4][j] = 8;//Ajoute une ligne
+		
+		}
+			
 		
 	}
 	

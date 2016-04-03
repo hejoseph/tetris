@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+//Permet d'écouter les messages provenant du client ou du serveur
 public class ReadInputThread implements Runnable {
 
 	private Socket socket;
@@ -25,6 +26,7 @@ public class ReadInputThread implements Runnable {
 	public void run() {
 
 		try {
+			//Crée le buffer pour écouter
 			in = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
 
@@ -48,8 +50,6 @@ public class ReadInputThread implements Runnable {
 //				System.out.println(m.get("malus"));
 			}
 
-			// System.out.println("Connection received from " +
-			// socket.getPort());
 
 		}
 	}
