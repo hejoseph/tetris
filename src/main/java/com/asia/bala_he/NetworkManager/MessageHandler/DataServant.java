@@ -3,7 +3,7 @@ package com.asia.bala_he.NetworkManager.MessageHandler;
 import java.util.HashMap;
 import java.util.Map;
 
-//string = name,malus
+
 public class DataServant {
 	public static Map parseIntoHashMap(String s){
 		Map map = new HashMap();

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.asia.bala_he.NetworkManager.MessageHandler.SendMessageToAll;
 
+//Classe permettant d'atablir la connexion entre un client et un serveur
 public class ClientConnexionThread implements Runnable {
 
 	private ServerSocket server;
@@ -43,15 +44,14 @@ public class ClientConnexionThread implements Runnable {
 		try {
 			while(!inGame) {
 
-				socket = server.accept();
+				socket = server.accept();//Arrivée d'un nouveau client
 				System.out.println("someone connected");
 				this.clientId++;
-				System.out.println("Client ID = "+this.clientId);
+				System.out.println("Client ID = "+this.clientId);//Affiche l'Id du nouveau client
 				this.clients.add(socket);
-//				if(serverProcessing!=null){
-//					serverProcessing.kill();
-//				}
+
 				serverProcessing = new SendMessageToAll(socket, this.clients, this.player, this.clientId);
+
 				new Thread(serverProcessing).start();
 				// t2.start();
 				System.out.println("New player is connected");

@@ -76,7 +76,7 @@ public class BoardTest {
 		Piece p = this.pf.getPiece(1+"");
 		
 		//When we rotate the piece
-		bm.rotate_right();
+		bm.rotate();
 		
 		//We set the orientation manually
 		p.setOrientation((p.getOrientation()+1)%4);

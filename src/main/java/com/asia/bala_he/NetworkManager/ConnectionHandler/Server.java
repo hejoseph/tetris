@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
+//Partie Serveur du réseau
 public class Server {
 	static final int port = 8078;
 	//increment each time a client connect to the server ... so it's unique for "this" server
@@ -13,7 +14,7 @@ public class Server {
 		return this.c.getClientId();
 	}
 
-	private static List<Socket> clients = new ArrayList<Socket>();
+	private static List<Socket> clients = new ArrayList<Socket>();//Liste pour stocker les sockets
 	private boolean inGame=false;
 	private ClientConnexionThread c = null;
 	private ServerSocket s = null;
@@ -23,6 +24,7 @@ public class Server {
 		try {
 			s = new ServerSocket(port);
 			acceptClient();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

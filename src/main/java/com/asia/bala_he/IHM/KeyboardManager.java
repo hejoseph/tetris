@@ -3,6 +3,7 @@ package com.asia.bala_he.IHM;
 import java.io.IOException;
 import com.asia.bala_he.GameManager.*;
 
+//Classe permettant de gérer les actions avec les touches
 public class KeyboardManager extends Thread{
     private Game g;
 
@@ -21,23 +22,23 @@ public class KeyboardManager extends Thread{
 //                        System.exit(0);
                     	g.setEndOfGame(true);
                     }
-                    if(read==114){
-                        g.getBoardManager().rotate_right();
+                    if(read==114){//touche r
+                        g.getBoardManager().rotate();
                     }
-                    if(read==113){
+                    if(read==113){//touche q
                         g.getBoardManager().move_left();
                     }
-                    if(read==115){
+                    if(read==115){//touche s
                         g.getBoardManager().move_down();
                     } 
-                    if(read==100){
+                    if(read==100){//touche d
                         g.getBoardManager().move_right();
                     }
                     if(read==122){
                     	g.getPlayer().sendData("malus=2");
                     }
                     // System.out.println(read);
-                    this.g.displayBoard();
+                    this.g.displayBoard();//affiche le résultat des déplacements sur la console
                 }
                 // try{
                 //     Thread.sleep(250);
@@ -50,22 +51,7 @@ public class KeyboardManager extends Thread{
             }
             
         }
-        // int read = 0;
-        // while(true){
-        //     try{
-        //         read = RawConsoleInput.read(false);
-        //         if(read!=-2){
-        //             System.out.println(read);
-        //         }
-        //         try{
-        //             Thread.sleep(500);
-        //         }catch(Exception e){
-        //             e.printStackTrace();
-        //         }
-        //     }catch(IOException ioe){
-
-        //     }
-        // }
+       
     }
 
 }

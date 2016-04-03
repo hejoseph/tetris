@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+//Classe pour gérer tout ce qui est avant le commencement du jeu
 public final class Constants{
 	
+	//Message d'acceuil
 	public static void displayWelcome(){
 		try
 		{
@@ -47,6 +49,7 @@ public final class Constants{
 		System.out.println();
 	}
 
+	//Affichage des menus
 	public static void displayMenu() {
 		System.out.println("1 : Create/Host a game");
 		System.out.println("2 : Find server/game");

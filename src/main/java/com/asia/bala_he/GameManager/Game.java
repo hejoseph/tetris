@@ -63,36 +63,30 @@ public class Game implements Runnable{
 		}
 	}
 
+	//Fonction permettant de commencer le jeu
 	public void playAGame() {
 		System.out.println("playing game");
 		
 		while (!this.endOfGame) {
-//			this.player.sendData("malus=2");
-			String malus = receivedMalus();
+
+			String malus = receivedMalus(); //Réception d'un manus
+
 			if(!malus.equals("")){
 				System.out.println("receivedMalus");
 				bm.eraseBoardWithCurrentPiece();
-//				try {
-//					Thread.sleep(3000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+
+
 				handleMalus(malus);
 			} 
-			// System.out.print("\033[H\033[2J");  
-   //  		System.out.flush();
+
 			
 			bm.fillBoardWithCurrentPiece();
-//			displayPiece(bm.getCurrent().getPiece());
-			// displayBoard();
-			
-//			simple_display_board(bm.getBoard());
+
 			if(bm.can_move_down()){
 				bm.move_down();
 			}else{
 				this.isEndOfGame();
-				
+				this.bm.malusAddRow();
 				int malusId = bm.deleteFilledRows();
 				int lastScore=this.score;
 				this.score+=malusId;
@@ -107,13 +101,13 @@ public class Game implements Runnable{
 						this.player.sendData("malus=1");
 					}
 				}
-					
-//				bm.malusAddRow();
+
 					
 							
 				
 				
 				bm.setX(0);
+				bm.setY((int)(bm.getBoard()[0].length/2)-2);
 				bm.setCurrent(pm.generateRandomPiece());
 			}
 			// bm.move_right();
@@ -193,7 +187,7 @@ public class Game implements Runnable{
 //	}
 
 	private String receivedMalus() {
-		String malusReceived = this.player.getRit().getMapValue("malus");
+		String malusReceived = this.player.getRit().getMapValue("malus");//manus mesage provenant du serveur
 		if(malusReceived.equals("")){
 			return "";
 		}
@@ -214,6 +208,7 @@ public class Game implements Runnable{
 //		}
 	}
 	
+	//Focntion pour affciher le manus sur la console 
 	public void displayBoard(){
 		clear();
 		System.out.println("Score :"+this.score);
@@ -239,19 +234,10 @@ public class Game implements Runnable{
 		System.out.println(d);
 
 
-		// for(int[] x : this.bm.getBoard()){
-		// 	for(int y : x){
-		// 		if(y!=0){
-		// 			System.out.print("["+y+"]");
-		// 		}else{
-		// 			System.out.print("   ");
-		// 		}
-				
-		// 	}
-		// 	System.out.println();
-		// }
+
 	}
 	
+
 	public void setEndOfGame(boolean endOfGame) {
 		this.endOfGame = endOfGame;
 	}
@@ -265,14 +251,7 @@ public class Game implements Runnable{
 		}
 		System.out.println();
 	}
+
 	
-	public static void simple_display_board(int[][] board){
-		for(int[] l : board){
-			for(int c : l){
-				System.out.print("["+c+"]");
-			}
-			System.out.println();
-		}
-	}
 
 }
