@@ -234,8 +234,8 @@ public class BoardManager {
 			}
 			//Si une ligne est remplie
 			if(count == this.board[0].length-6){
-				//manusAddRow();
-				deleteFilledRowAndMovePieces(i);//Supprime la ligne et décale les pièces vers le bas
+				malusAddRow();
+				//deleteFilledRowAndMovePieces(i);//Supprime la ligne et décale les pièces vers le bas
 				//System.out.println("shjgdsjhgds");
 				nbRowDeleted++;
 			}
@@ -299,12 +299,15 @@ public class BoardManager {
 	public void AddExtraRow(int row) {
 		System.out.println("RowNumber");
 		System.out.println(row);
-		for (int i  = row; i < this.board.length-4; i++)
+		for (int i  = row; i < this.board.length-3; i++)
 		{
 			
 			for (int j = 3; j < this.board[0].length-3; j++) {
+					
+				
 					if(this.board[i][j] !=0  ){
 						this.board[i-1][j] = this.board[i][j];//Décale les pièces vers le haut
+						this.board[i][j] =0;
 					}
 			
 				
