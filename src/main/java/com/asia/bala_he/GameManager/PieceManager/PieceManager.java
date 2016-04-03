@@ -19,8 +19,8 @@ public class PieceManager {
 	}
 
 	public Piece generateRandomPiece() {
-//		String piece_num = chooseRandomnNumber_1to7() + "";
-		String piece_num = 2+"";
+		String piece_num = chooseRandomnNumber_1to7() + "";
+//		String piece_num = 2+"";
 		Piece p = this.pf.getPiece(piece_num);
 		return p;
 	}
