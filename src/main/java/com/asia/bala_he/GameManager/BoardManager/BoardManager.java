@@ -305,7 +305,7 @@ public class BoardManager {
 			for (int j = 3; j < this.board[0].length-3; j++) {
 					
 				
-				if(this.board[i][j] !=0  ){
+				if(this.board[i-1][j] !=0  ){
 						this.board[i-1][j] = this.board[i][j];//Décale les pièces vers le haut
 						this.board[i][j] =0;
 					}
