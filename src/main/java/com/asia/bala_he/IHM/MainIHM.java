@@ -1,6 +1,9 @@
 package com.asia.bala_he.IHM;
 
-import java.io.IOException;
+import java.net.BindException;
+import java.net.ConnectException;
+import java.util.Map;
+import java.util.Scanner;
 
 import com.asia.bala_he.Constants;
 import com.asia.bala_he.GameManager.Game;
@@ -11,9 +14,6 @@ import com.asia.bala_he.NetworkManager.ConnectionHandler.Client;
 import com.asia.bala_he.NetworkManager.ConnectionHandler.Server;
 import com.asia.bala_he.NetworkManager.MessageHandler.DataServant;
 import com.asia.bala_he.ScoreManager.FileManager;
-
-import java.util.*;
-import java.util.prefs.BackingStoreException;
 
 
 //Classe main pour le jeu
@@ -63,12 +63,14 @@ public class MainIHM {
 	// c.setClientId(clientId);
 	// }
 
-	//Fonction qui crée une nouvelle partie
+	//Fonction qui crï¿½e une nouvelle partie
 	public static void createGame() {
+		backToMenu = false;
 		int a = 0;
-		s = new Server();//Cration d'un serveur
+		if(s==null){
+			s = Server.getInstance();//Cration d'un serveur
+		}
 		c.connect("127.0.0.1", 8078);
-
 		String d="";
 //		while(d!="quit"){
 //			d = enter.next();
@@ -101,12 +103,12 @@ public class MainIHM {
 				startGame();
 				
 				gameStarted=false;
-				s.acceptClient();
 				break;
 			case 2:
 				backToMenu = true;
-				c.disconnect();
-				s.disconnect();
+				c.sendData("kill=true");
+//				c.disconnect();
+//				s.disconnect();
 				break;
 			}
 		}
@@ -160,7 +162,7 @@ public class MainIHM {
 		// list of game server ... ?
 		int a = 0;
 		Constants.displayMenu3();
-		c.connect("127.0.0.1", 8078);//Par défault
+		c.connect("127.0.0.1", 8078);//Par dï¿½fault
 		
 		c.sendData("requestId=true");
 		String id = c.getRit().getStr();

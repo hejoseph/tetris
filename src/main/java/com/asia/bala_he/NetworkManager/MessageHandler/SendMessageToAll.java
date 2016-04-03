@@ -15,7 +15,7 @@ import java.util.Map;
 public class SendMessageToAll implements Runnable {
 
 	private Socket socket;
-	private List<Socket> clients;
+	private volatile List<Socket> clients;
 	private Map player = null;
 	private BufferedReader in;
 	private Map m = null;
@@ -95,13 +95,31 @@ public class SendMessageToAll implements Runnable {
 				if(m.containsKey("startGame")){
 					notifyAllGameStarting();
 				}
+				if(m.containsKey("kill")){
+					killSocket();
+				}
 			}
 
 		}
 		System.out.println("thread closed ?");
 	}
 
-	//Envoie des manus à tous les clients
+	private void killSocket() {
+		try {
+			if(this.clients.get(this.clientId) != null && !this.clients.get(this.clientId).isClosed()){
+				this.clients.get(this.clientId).close();
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+
+			// this.clients.remove(i);
+			e.printStackTrace();
+
+		}
+	}
+
+	//Envoie des manus ï¿½ tous les clients
 	private void notifyAllGameStarting() {
 		for (int i = 0; i < this.clients.size(); i++) {
 			if (this.clients.get(i).isClosed()) {
@@ -127,7 +145,7 @@ public class SendMessageToAll implements Runnable {
 		}
 	}
 
-	//Lorsqu'un joueur quitte le jeu ça ferme le socket
+	//Lorsqu'un joueur quitte le jeu é° ferme le socket
 	private void closeAllSocket() {
 		for(Socket s : this.clients){
 			try {
@@ -148,7 +166,14 @@ public class SendMessageToAll implements Runnable {
 					new OutputStreamWriter(this.clients.get(this.clientId)
 							.getOutputStream())), true);
 			if(param.equals("nb")){
-				out.println("listPlayers="+this.player.size());
+				int nb = 0;
+				for(Socket s : this.clients){
+					if(!s.isClosed()){
+						nb++;
+					}
+				}
+				System.out.println(nb+" Coo");
+				out.println("listPlayers="+nb);
 			} else {
 				out.println("listPlayers="+this.player);
 			}
