@@ -14,7 +14,7 @@ public class ClientConnexionThread implements Runnable {
 
 	private ServerSocket server;
 	private Socket socket;
-	private List<Socket> clients;
+	private volatile List<Socket> clients;
 	private boolean inGame;
 	private int clientId=-1;
 	private SendMessageToAll serverProcessing = null;

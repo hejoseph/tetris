@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 //Partie Serveur du réseau
 public class Server {
+	
+	private static Server singleton = null;
+	
 	static final int port = 8078;
 	//increment each time a client connect to the server ... so it's unique for "this" server
 	public int getClientId() {
@@ -32,6 +35,13 @@ public class Server {
 		// Socket soc = s.accept();
 		
 	}
+	
+	public static Server getInstance( ) {
+		if(singleton==null){
+			return new Server();
+		}
+	      return singleton;
+	   }
 	
 	public void acceptClient(){
 		c = new ClientConnexionThread(s, clients, inGame);
