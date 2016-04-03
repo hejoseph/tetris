@@ -207,25 +207,27 @@ public class BoardManager {
 	
 	/*Suprression Ligne complet*/
 	
-	public void deleteFilledRows() {
+	public int deleteFilledRows() {
 		
 		int count = 0;
-		
+		int nbRowDeleted = 0;
 		for (int i  = 0; i < this.board.length-3; i++)
 		{
 			count=0;
-			for (int j = 0; j < this.board[0].length; j++) {
+			for (int j = 3; j < this.board[0].length-3; j++) {
 				if (this.board[i][j] != 0 && this.board[i][j] != 8 ) {
 					count++;
 					this.rowToDelete = i;
 				}
 				
 			}
-			if(count == 12){
+			if(count == this.board[0].length-6){
 				deleteFilledRowAndMovePieces(i);
+				nbRowDeleted++;
 			}
 		
-		}		
+		}
+		return nbRowDeleted;
 	}
 	
 	public void deleteFilledRowAndMovePieces(int row_num) {
@@ -267,7 +269,7 @@ public class BoardManager {
 	}
 	
 	
-	public void manusAddRow() {
+	public void malusAddRow() {
 		
 		int i =1;
 		int row=0; 

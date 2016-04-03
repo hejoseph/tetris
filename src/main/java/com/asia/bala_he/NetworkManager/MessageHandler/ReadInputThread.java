@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ReadInputThread implements Runnable {
@@ -12,7 +13,7 @@ public class ReadInputThread implements Runnable {
 	private BufferedReader in;
 	private String str;
 	private boolean connected;
-	private Map m = null;
+	private Map m = new HashMap();
 	private String data = "";
 	
 	public ReadInputThread(Socket s, boolean connected, String data) {
@@ -43,7 +44,7 @@ public class ReadInputThread implements Runnable {
 			if (str != null) {
 				this.data = str;
 				System.out.println(this.data);
-//				this.m = DataServant.parseIntoHashMap(str);
+				this.m = DataServant.parseIntoHashMap(str);
 //				System.out.println(m.get("malus"));
 			}
 
@@ -83,6 +84,19 @@ public class ReadInputThread implements Runnable {
 
 	public void setStr(String str) {
 		this.str = str;
+	}
+	
+	public void changeMapValue(String key, String value){
+		if(this.m.containsKey(key)){
+			this.m.put(key, value);
+		}
+	}
+	
+	public String getMapValue(String key){
+		if(this.m.containsKey(key)){
+			return (String) this.m.get(key);
+		}
+		return "";
 	}
 
 }

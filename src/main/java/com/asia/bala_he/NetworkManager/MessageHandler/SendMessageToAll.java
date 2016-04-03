@@ -20,8 +20,10 @@ public class SendMessageToAll implements Runnable {
 	private BufferedReader in;
 	private Map m = null;
 	private String str;
-	private boolean eow = true;
 	private int clientId;
+	private volatile boolean isRunning = true;
+
+	
 
 	public SendMessageToAll(Socket s, List<Socket> clients, Map player, int clientId) {
 		this.socket = s;
@@ -42,7 +44,7 @@ public class SendMessageToAll implements Runnable {
 			e.printStackTrace();
 		}
 
-		while (eow) {
+		while (isRunning) {
 			try {
 				System.out
 						.println("thread with " + clients.size() + " clients");
@@ -67,7 +69,7 @@ public class SendMessageToAll implements Runnable {
 					e1.printStackTrace();
 
 				}
-				eow = false;
+				isRunning = false;
 				break;
 			}
 
@@ -199,5 +201,8 @@ public class SendMessageToAll implements Runnable {
 		return this.player;
 	}
 	
+	public void kill(){
+		isRunning = false;
+	}
 
 }

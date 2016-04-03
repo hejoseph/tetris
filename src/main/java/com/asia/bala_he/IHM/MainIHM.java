@@ -21,6 +21,7 @@ public class MainIHM {
 	private static boolean gameStarted = false;
 	private static Server s = null;
 	private static Client c = null;
+	private static Thread t = null;
 
 	public static void main(String[] args) {
 		int a = 0;
@@ -137,7 +138,7 @@ public class MainIHM {
 		c.connect("127.0.0.1", 8078);
 		c.setClientId(s.getClientId() + "");
 		c.sendData("id=" + c.getClientId() + "&name=" + c.getName());
-		Thread t = new Thread(new Runnable() {
+		t = new Thread(new Runnable() {
 			public void run() {
 				while (!backToMenu && !gameStarted) {
 					Constants.displayMenu2();
@@ -159,6 +160,7 @@ public class MainIHM {
 				gameStarted = true;
 				c.sendData("startGame=true");
 				startGame(c);
+				gameStarted=false;
 				break;
 			case 2:
 				backToMenu = true;
@@ -229,10 +231,11 @@ public class MainIHM {
 				while (!backToMenu && !gameStarted) {
 					System.out.println(backToMenu);
 					System.out.println(gameStarted);
-					String s = c.getRit().getStr();
-					Map m = DataServant.parseIntoHashMap(s);
-					if(m.get("startGame")!=null)
-						gameStarted = Boolean.parseBoolean((String) m.get("startGame"));
+					String m = c.getRit().getMapValue("startGame");
+					if(!m.equals("")){
+						gameStarted = Boolean.parseBoolean((String) m);
+						c.getRit().changeMapValue("startGame", "");
+					}
 					c.sendData("listPlayers=true");
 					System.out.println("omg");
 					System.out.println(c.getRit().getStr());
@@ -243,21 +246,28 @@ public class MainIHM {
 					}
 
 				}
-				if(gameStarted){
-					startGame(c);
-				}
 			}
 		});
 		t.start();
-		while (!backToMenu) {
-			System.out.println("wtf ? " + backToMenu);
-			a = enter.nextInt();
-			switch (a) {
-			case 1:
-				backToMenu = true;
-				c.disconnect();
-				break;
+		while (!gameStarted) {
+//			System.out.println("wtf ? " + backToMenu);
+//			a = enter.nextInt();
+//			switch (a) {
+//			case 1:
+//				backToMenu = true;
+//				c.disconnect();
+//				break;
+//			}
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+		}
+		if(gameStarted){
+			startGame(c);
+			gameStarted=false;
 		}
 	}
 

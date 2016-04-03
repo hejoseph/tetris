@@ -38,17 +38,18 @@ public class Client {
 			Scanner sc = new Scanner(System.in);
 			String s = sc.nextLine();
 			c.sendData(s);
-			System.out.println(c.getRit().getStr());
+//			System.out.println(c.getRit().getStr());
 //			String data = c.getRit().getStr();
+//			System.out.println(data);
 //			Map m = new HashMap();
 //			m = DataServant.parseIntoHashMap(data);
 //			System.out.println(data+" stuf="+m.get("startGame"));
-//			try {
-//				Thread.sleep(1000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

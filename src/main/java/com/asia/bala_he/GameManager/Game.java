@@ -57,6 +57,20 @@ public class Game implements Runnable{
 		System.out.println("playing game");
 		
 		while (!this.endOfGame) {
+			String malus = receivedMalus();
+			if(!malus.equals("")){
+				System.out.println("receivedMalus");
+				bm.eraseBoardWithCurrentPiece();
+//				try {
+//					Thread.sleep(3000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				handleMalus(malus);
+			} else {
+				System.out.println("Nothing received");
+			}
 			// System.out.print("\033[H\033[2J");  
    //  		System.out.flush();
 			
@@ -70,8 +84,12 @@ public class Game implements Runnable{
 			}else{
 				this.isEndOfGame();
 				
-			
-				bm.deleteFilledRows();
+				int malusId = bm.deleteFilledRows();
+				System.out.println("id : "+malusId);
+				if(malusId>0){
+					System.out.println("Sending");
+					this.player.sendData("malus=2");
+				}
 				//bm.manusAddRow();
 					
 							
@@ -85,7 +103,7 @@ public class Game implements Runnable{
 			
 //			simple_display_board(bm.getBoard());
 			try {
-				Thread.sleep(500);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -95,7 +113,21 @@ public class Game implements Runnable{
 			// 	bm.move_right();
 			// }
 		}
-		System.exit(0);
+	}
+	
+	private void handleMalus(String mode){
+		//add row
+		System.out.println(mode+" "+mode.length());
+		if(mode.equals("1")){
+//			bm.malusAddRow();
+			while(bm.can_move_down()){
+				bm.move_down();
+			}
+		} else if(mode.equals("2")){ //move the current piece all the way down
+			while(bm.can_move_down()){
+				bm.move_down();
+			}
+		}
 	}
 
 	// Affichage de la grille = function noob
@@ -143,17 +175,26 @@ public class Game implements Runnable{
 //
 //	}
 
-	public static void clear(){
-		System.out.print("\033[H\033[2J");  
-    	System.out.flush();
-		try{
-   	 		if(System.getProperty("os.name" ).startsWith("Windows" ))
-			  Runtime.getRuntime().exec("cls" );
-			else
-			  Runtime.getRuntime().exec("clear" );
-		}catch(IOException e){
-			e.printStackTrace();
+	private String receivedMalus() {
+		String malusReceived = this.player.getRit().getMapValue("malus");
+		if(malusReceived.equals("")){
+			return "";
 		}
+		this.player.getRit().changeMapValue("malus", "");
+		return malusReceived;
+	}
+
+	public static void clear(){
+//		System.out.print("\033[H\033[2J");  
+//    	System.out.flush();
+//		try{
+//   	 		if(System.getProperty("os.name" ).startsWith("Windows" ))
+//			  Runtime.getRuntime().exec("cls" );
+//			else
+//			  Runtime.getRuntime().exec("clear" );
+//		}catch(IOException e){
+//			e.printStackTrace();
+//		}
 	}
 	
 	public void displayBoard(){
