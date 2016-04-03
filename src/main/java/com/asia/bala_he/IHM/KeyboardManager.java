@@ -19,7 +19,8 @@ public class KeyboardManager extends Thread{
                 read = RawConsoleInput.read(false);
                 if(read!=-2){
                     if(read==27){
-                        System.exit(0);
+//                        System.exit(0);
+                    	g.setEndOfGame(true);
                     }
                     if(read==114){//touche r
                         g.getBoardManager().rotate();
@@ -32,6 +33,9 @@ public class KeyboardManager extends Thread{
                     } 
                     if(read==100){//touche d
                         g.getBoardManager().move_right();
+                    }
+                    if(read==122){
+                    	g.getPlayer().sendData("malus=2");
                     }
                     // System.out.println(read);
                     this.g.displayBoard();//affiche le résultat des déplacements sur la console

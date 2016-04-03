@@ -23,6 +23,14 @@ public class Game implements Runnable{
 		this.player = player;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 	public Client getPlayer() {
 		return player;
 	}
@@ -58,40 +66,33 @@ public class Game implements Runnable{
 		System.out.println("playing game");
 		
 		while (!this.endOfGame) {
+
 			String malus = receivedMalus(); //Réception d'un manus
+
 			if(!malus.equals("")){
 				System.out.println("receivedMalus");
 				bm.eraseBoardWithCurrentPiece();
-//				try {
-//					Thread.sleep(3000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				handleMalus(malus); //Action d'un manus sur la partie
-			} else {
-				System.out.println("Nothing received");
-			}
-			// System.out.print("\033[H\033[2J");  
-   //  		System.out.flush();
+
+
+				handleMalus(malus);
+			} 
+
 			
 			bm.fillBoardWithCurrentPiece();
-//			displayPiece(bm.getCurrent().getPiece());
-			// displayBoard();
-			
-//			simple_display_board(bm.getBoard());
+
 			if(bm.can_move_down()){
 				bm.move_down();
 			}else{
 				this.isEndOfGame();
-				this.bm.manusAddRow();
+				this.bm.malusAddRow();
 				int malusId = bm.deleteFilledRows();
+				this.score+=malusId;
 				System.out.println("id : "+malusId);
 				if(malusId>0){
 					System.out.println("Sending");
-					this.player.sendData("malus=2");
+					this.player.sendData("malus="+malusId);
 				}
-				
+
 					
 							
 				
@@ -121,14 +122,11 @@ public class Game implements Runnable{
 		//add row
 		System.out.println(mode+" "+mode.length());
 		if(mode.equals("1")){
-//			bm.malusAddRow();
-			while(bm.can_move_down()){
+			while(bm.can_move_down()){//move the current piece all the way down
 				bm.move_down();
 			}
-		} else if(mode.equals("2")){ //move the current piece all the way down
-			while(bm.can_move_down()){
-				bm.move_down();
-			}
+		} else if(mode.equals("2")){ 
+			bm.malusAddRow();
 		}
 	}
 
@@ -202,6 +200,7 @@ public class Game implements Runnable{
 	//Focntion pour affciher le manus sur la console 
 	public void displayBoard(){
 		clear();
+		System.out.println("Score :"+this.score);
 		String d ="";
 		int[][] board = this.bm.getBoard();
 		for(int l=0;l<board.length-2;l++){
@@ -227,6 +226,21 @@ public class Game implements Runnable{
 
 	}
 	
+
+	public void setEndOfGame(boolean endOfGame) {
+		this.endOfGame = endOfGame;
+	}
+
+	public void displayPiece(int[] piece){
+		for(int i=0; i<piece.length;i++){
+			if(i%4==0){
+				System.out.println();
+			}
+			System.out.print("["+piece[i]+"]");
+		}
+		System.out.println();
+	}
+
 	
 
 }

@@ -17,20 +17,42 @@ public class Server {
 	private static List<Socket> clients = new ArrayList<Socket>();//Liste pour stocker les sockets
 	private boolean inGame=false;
 	private ClientConnexionThread c = null;
+	private ServerSocket s = null;
+	
 	
 	public Server(){
-		ServerSocket s;
 		try {
-			s = new ServerSocket(port);//Création du serveur
-			c = new ClientConnexionThread(s, clients, inGame);//Etablissement de la connexion avec le client
-			Thread t = new Thread(c);
-			t.start();
+			s = new ServerSocket(port);
+			acceptClient();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// Socket soc = s.accept();
 		
+	}
+	
+	public void acceptClient(){
+		c = new ClientConnexionThread(s, clients, inGame);
+		Thread t = new Thread(c);
+		t.start();
+	}
+
+	public void disconnect(){
+		if(this.s!=null){
+			try {
+				s.close();
+				c.kill();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void refuseClient(){
+		c.setInGame(true);
 	}
 	
 	public Map requestPlayer(){

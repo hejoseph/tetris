@@ -87,7 +87,7 @@ public class SendMessageToAll implements Runnable {
 					sendLastClientId();
 				}
 				if(m.containsKey("listPlayers")){
-					sendListPlayer();
+					sendListPlayer(m.get("listPlayers")+"");
 				}
 				if(m.containsKey("closeAll")){
 					closeAllSocket();
@@ -139,7 +139,7 @@ public class SendMessageToAll implements Runnable {
 		}
 	}
 
-	private void sendListPlayer() {
+	private void sendListPlayer(String param) {
 		try {
 			PrintWriter out;
 			System.out.println("List");
@@ -147,7 +147,11 @@ public class SendMessageToAll implements Runnable {
 			out = new PrintWriter(new BufferedWriter(
 					new OutputStreamWriter(this.clients.get(this.clientId)
 							.getOutputStream())), true);
-			out.println("listPlayers="+this.player);
+			if(param.equals("nb")){
+				out.println("listPlayers="+this.player.size());
+			} else {
+				out.println("listPlayers="+this.player);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 

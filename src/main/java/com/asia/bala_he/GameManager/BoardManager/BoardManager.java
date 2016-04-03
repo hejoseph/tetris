@@ -271,7 +271,7 @@ public class BoardManager {
 	
 
 	//Manus permettant d'ajouter une ligne
-	public void manusAddRow() {
+	public void malusAddRow() {
 		
 		int i=1;
 		int row=0; 
@@ -279,7 +279,9 @@ public class BoardManager {
 			
 			
 			for (int j = 3 ; j < board[0].length-3; j++) {
+
 				if (this.board[row][j] != 0 ) {
+
 					AddExtraRow(row);
 					i=0;
 				}
