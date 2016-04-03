@@ -103,7 +103,6 @@ public class MainIHM {
 				startGame();
 				
 				gameStarted=false;
-				s.acceptClient();
 				break;
 			case 2:
 				backToMenu = true;
