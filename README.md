@@ -68,13 +68,13 @@ Le dernier conteneur s’agit du ScoreManager et s’occupe de la gestion du sco
 
 Les design patterns / Solid 
 
-Singleton
+Singleton:
 Nous avons besoin d’une instance unique qui représente la classe Serveur, pour pas qu’il y ait plusieurs serveur lorsqu’un utilisateur créer une partie auxquels d’autre utilisateurs vont se connecter.
-Servant
+Servant:
 Nous avons une classe DataServant pour analyser les messages et les mettre dans un hashmap pour une utilisation plus facile.
-Template
+Template:
 La classe MainIHM représente un template pour les cas d’utilisations (il y a un ordre dans l’exécution)
-Factory
+Factory:
 Pour la génération d’objet Piece.
 
 Notre conception est plus souvent basé sur une seule responsabilité par composant. Par exemple, on a un composant BoardManager qui a les responsabilité des opérations du plateau, et GameManager qui a la responsabilité de la partie, une partie de jeu, et qui va dépendre de BoardManager et donc utiliser ses opérations.
