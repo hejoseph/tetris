@@ -14,6 +14,7 @@ public class Game implements Runnable{
 	private int score;
 	private boolean endOfGame;
 	private Client player;
+	private int speed;
 
 	public Game(BoardManager bm, PieceManager pm, Client player) {
 		this.bm = bm;
@@ -21,6 +22,7 @@ public class Game implements Runnable{
 		this.score = 0;
 		this.endOfGame = false;
 		this.player = player;
+		this.speed=1000;
 	}
 
 	public int getScore() {
@@ -92,12 +94,20 @@ public class Game implements Runnable{
 				this.isEndOfGame();
 				
 				int malusId = bm.deleteFilledRows();
+				int lastScore=this.score;
 				this.score+=malusId;
 				System.out.println("id : "+malusId);
-				if(malusId>0){
-					System.out.println("Sending");
-					this.player.sendData("malus="+malusId);
+				if(lastScore!=this.score){
+					if(this.score%2==0){
+						System.out.println("Sending");
+						this.player.sendData("malus=2");
+					} else if(this.score%3==0){
+						this.player.sendData("malus=3");
+					} else if(this.score%1==0){
+						this.player.sendData("malus=1");
+					}
 				}
+					
 //				bm.malusAddRow();
 					
 							
@@ -111,7 +121,7 @@ public class Game implements Runnable{
 			
 //			simple_display_board(bm.getBoard());
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(this.speed);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -131,7 +141,9 @@ public class Game implements Runnable{
 				bm.move_down();
 			}
 		} else if(mode.equals("2")){ 
-			bm.malusAddRow();
+			this.speed=(int)this.speed/2;
+		} else if(mode.equals("3")){
+			this.bm.malusAddRow();
 		}
 	}
 

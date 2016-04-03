@@ -90,11 +90,15 @@ public class Client {
 	}
 
 	public void disconnect() {
-		rit.setConnected(false);
+		if(this.rit!=null){
+			this.rit.setConnected(false);
+		}
 		try {
-			out.close();
-			bw.close();
-			this.socket.close();
+			if(this.out!=null && this.bw!=null && this.socket!=null){
+				out.close();
+				bw.close();
+				this.socket.close();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
